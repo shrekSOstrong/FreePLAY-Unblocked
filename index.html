@@ -1233,7 +1233,10 @@ function applyFilters() {
     const id = card.dataset.id;
     const game = GAMES.find(g => g.id === id);
     const catMatch = activecat === 'all' || game.cat === activecat;
-    const searchMatch = !searchTerm || game.title.toLowerCase().includes(searchTerm) || game.cat.includes(searchTerm);
+    const searchMatch =
+  !searchTerm ||
+  game.title.toLowerCase().includes(searchTerm) ||
+  game.cat.toLowerCase().includes(searchTerm);
     if (catMatch && searchMatch) { card.classList.remove('hidden'); visible++; }
     else card.classList.add('hidden');
   });
