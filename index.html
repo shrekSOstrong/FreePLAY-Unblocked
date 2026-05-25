@@ -1207,7 +1207,9 @@ function renderCards(games) {
         <div class="card-title">${game.title}</div>
         <div class="card-tag">${game.cat}</div>
       </div>
-      <button class="card-play-btn" data-id="${game.id}">▶ PLAY NOW</button>
+      <button type="button" class="card-play-btn" data-id="${game.id}">
+  ▶ PLAY NOW
+</button>
     `;
     card.querySelector('.card-play-btn').addEventListener('click', (e) => {
       e.stopPropagation();
