@@ -1194,34 +1194,46 @@ init();function loop(){update();draw();requestAnimationFrame(loop);}loop();
 const grid = document.getElementById('gameGrid');
 
 function renderCards(games) {
-  grid.innerHTML = '';
-  games.forEach(game => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.cat = game.cat;
-    card.dataset.id = game.id;
-    card.innerHTML = `
+  grid.innerHTML = games.map(game => `
+    <div class="card" data-cat="${game.cat}" data-id="${game.id}">
       <div class="card-thumb-placeholder">${game.emoji}</div>
-      ${game.badge ? `<div class="card-badge">${game.badge}</div>` : ''}
+
+      ${game.badge ? `
+        <div class="card-badge">${game.badge}</div>
+      ` : ''}
+
       <div class="card-body">
         <div class="card-title">${game.title}</div>
         <div class="card-tag">${game.cat}</div>
       </div>
-      <button type="button" class="card-play-btn" data-id="${game.id}">
-  ▶ PLAY NOW
-</button>
-    `;
-    card.querySelector('.card-play-btn').addEventListener('click', (e) => {
-      e.stopPropagation();
-      openGame(game);
-    });
-    card.addEventListener('click', () => openGame(game));
+
+      <button
+        type="button"
+        class="card-play-btn"
+        data-id="${game.id}">
+        ▶ PLAY NOW
+      </button>
+    </div>
+  `).join('');
+}
     grid.appendChild(card);
   });
 }
 
 renderCards(GAMES);
 applyFilters();
+  grid.addEventListener('click', (e) => {
+  const card = e.target.closest('.card');
+  if (!card) return;
+
+  const gameId = card.dataset.id;
+  const game = GAMES.find(g => g.id === gameId);
+
+  if (game) {
+    openGame(game);
+    console.log(game.title);
+  }
+});
 
 // ─────────────────────────────────────────────
 //  FILTER + SEARCH
