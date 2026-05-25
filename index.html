@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreePlay Zone — Unblocked Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #05070f;
+      --surface: #0d1220;
+      --card: #111827;
+      --card-hover: #1a2438;
+      --border: #1e2d4a;
+      --accent: #00e5ff;
+      --accent2: #ff3cac;
+      --accent3: #7b2fff;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --glow: 0 0 20px rgba(0,229,255,0.3);
+      --glow2: 0 0 20px rgba(255,60,172,0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Exo 2', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5,7,15,0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+    }
+
+    .logo {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
+
+    .logo span {
+      -webkit-text-fill-color: var(--accent2);
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+
+    .cat-btn:hover, .cat-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+      box-shadow: var(--glow);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 .line1 { color: var(--text); }
+    .hero h1 .line2 {
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: hueShift 4s linear infinite;
+    }
+
+    @keyframes hueShift {
+      0%   { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+
+    .search-wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 14px 24px;
+      color: var(--text);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .search-wrap input::placeholder { color: var(--muted); }
+
+    /* ── GAME GRID ── */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 30px 60px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: var(--glow), 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .card-thumb-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--surface), var(--card-hover));
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent2);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-body {
+      padding: 14px 16px;
+    }
+
+    .card-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-play-btn {
+      display: block;
+      width: calc(100% - 32px);
+      margin: 0 16px 14px;
+      background: linear-gradient(90deg, var(--accent3), var(--accent));
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .card-play-btn:hover { opacity: 0.85; transform: scale(0.98); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      width: 95vw;
+      max-width: 1100px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(0,229,255,0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-fullscreen, .btn-close {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .btn-close:hover { background: #c0392b; border-color: #c0392b; }
+    .btn-fullscreen:hover { background: var(--accent3); border-color: var(--accent3); }
+
+    .modal-frame {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+    }
+
+    .modal-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      min-height: 540px;
+    }
+
+    /* Inline canvas game */
+    .modal-frame canvas {
+      display: block;
+      background: #000;
+    }
+
+    .modal-frame #game-container {
+      width: 100%;
+      height: 100%;
+      min-height: 540px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    /* ── NO RESULTS ── */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      display: none;
+    }
+
+    .no-results .icon { font-size: 4rem; margin-bottom: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* Hidden cards */
+    .card.hidden { display: none; }
+
+    @media (max-width: 640px) {
+      header { padding: 16px 20px; flex-direction: column; gap: 12px; }
+      .logo { font-size: 1.2rem; }
+      .section { padding: 16px 16px 40px; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+      nav { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">FREE<span>PLAY</span> ZONE</div>
+  <nav id="catNav">
+    <button class="cat-btn active" data-cat="all">All</button>
+    <button class="cat-btn" data-cat="action">Action</button>
+    <button class="cat-btn" data-cat="puzzle">Puzzle</button>
+    <button class="cat-btn" data-cat="arcade">Arcade</button>
+    <button class="cat-btn" data-cat="strategy">Strategy</button>
+    <button class="cat-btn" data-cat="sports">Sports</button>
+    <button class="cat-btn" data-cat="io">IO Games</button>
+    <button class="cat-btn" data-cat="classic">Classic</button>
+    <button class="cat-btn" data-cat="simulation">Simulation</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>
+    <div class="line1">UNBLOCKED GAMES</div>
+    <div class="line2">PLAY ANYWHERE, ANYTIME</div>
+  </h1>
+  <p>100% free browser games. No downloads, no installs, no restrictions.</p>
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="🔍  Search games..." />
+  </div>
+</div>
+
+<!-- GAME GRID -->
+<div class="section">
+  <div class="section-title" id="sectionTitle">All Games</div>
+  <div class="grid" id="gameGrid"></div>
+  <div class="no-results" id="noResults">
+    <div class="icon">👾</div>
+    <div>No games found. Try a different search!</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Game</div>
+      <div class="modal-actions">
+        <button class="btn-fullscreen" id="btnFullscreen" title="Fullscreen">⛶</button>
+        <button class="btn-close" id="btnClose" title="Close">✕</button>
+      </div>
+    </div>
+    <div class="modal-frame" id="modalFrame"></div>
+  </div>
+</div>
+
+<footer>
+  FreePlay Zone &mdash; All games are hosted by their respective owners &amp; run in your browser. &copy; 2025
+</footer>
+
+<script>
+// ─────────────────────────────────────────────
+//  GAME DATA
+//  Types: 'iframe' = embedded URL, 'builtin' = JS game
+// ─────────────────────────────────────────────
+const GAMES = [
+  // ── IO GAMES ──
+  { id:'slither',    title:'Slither.io',      cat:'io',       emoji:'🐍', badge:'Hot',
+    type:'iframe',   url:'https://slither.io' },
+  { id:'agar',       title:'Agar.io',         cat:'io',       emoji:'🔵',
+    type:'iframe',   url:'https://agar.io' },
+  { id:'diep',       title:'Diep.io',         cat:'io',       emoji:'🔫',
+    type:'iframe',   url:'https://diep.io' },
+  { id:'paper',      title:'Paper.io 2',      cat:'io',       emoji:'🗺️',
+    type:'iframe',   url:'https://paper-io.com' },
+  { id:'wormate',    title:'Wormate.io',      cat:'io',       emoji:'🐛',
+    type:'iframe',   url:'https://wormate.io' },
+  { id:'defly',      title:'Defly.io',        cat:'io',       emoji:'✈️',
+    type:'iframe',   url:'https://defly.io' },
+  { id:'spinz',      title:'Spinz.io',        cat:'io',       emoji:'🌀',
+    type:'iframe',   url:'https://spinz.io' },
+  { id:'krunker',    title:'Krunker.io',      cat:'action',   emoji:'🎯', badge:'🔥',
+    type:'iframe',   url:'https://krunker.io' },
+  { id:'shellshock', title:'Shell Shockers',  cat:'action',   emoji:'🥚',
+    type:'iframe',   url:'https://shellshockers.io' },
+  { id:'ev',         title:'EV.io',           cat:'action',   emoji:'⚡',
+    type:'iframe',   url:'https://ev.io' },
+  { id:'moomoo',     title:'MooMoo.io',       cat:'io',       emoji:'🐄',
+    type:'iframe',   url:'https://moomoo.io' },
+  { id:'starve',     title:'Starve.io',       cat:'io',       emoji:'🌲',
+    type:'iframe',   url:'https://starve.io' },
+  { id:'zombs',      title:'Zombs.io',        cat:'io',       emoji:'🧟',
+    type:'iframe',   url:'https://zombs.io' },
+  { id:'brutal',     title:'Brutal.io',       cat:'io',       emoji:'💥',
+    type:'iframe',   url:'https://brutal.io' },
+  { id:'vertix',     title:'Vertix.io',       cat:'action',   emoji:'🔺',
+    type:'iframe',   url:'https://vertix.io' },
+
+  // ── ARCADE ──
+  { id:'retrobowl',  title:'Retro Bowl',      cat:'sports',   emoji:'🏈', badge:'Popular',
+    type:'iframe',   url:'https://retrobowl.me' },
+  { id:'cookieclicker', title:'Cookie Clicker', cat:'arcade', emoji:'🍪',
+    type:'iframe',   url:'https://orteil.dashnet.org/cookieclicker/' },
+  { id:'2048',       title:'2048',            cat:'puzzle',   emoji:'🔢', badge:'Classic',
+    type:'iframe',   url:'https://play2048.co' },
+  { id:'tetris',     title:'Jstris (Tetris)', cat:'classic',  emoji:'🧱',
+    type:'iframe',   url:'https://jstris.jezevec10.com' },
+  { id:'chess',      title:'Chess',           cat:'strategy', emoji:'♟️',
+    type:'iframe',   url:'https://www.chess.com/play/computer' },
+  { id:'checkers',   title:'Checkers',        cat:'strategy', emoji:'🔴',
+    type:'iframe',   url:'https://www.gameflare.com/embed/checkers/' },
+  { id:'minecraft',  title:'Eaglercraft (MC)',cat:'action',   emoji:'⛏️', badge:'🔥',
+    type:'iframe',   url:'https://eaglercraft.com/mc/1.8.8/' },
+  { id:'run3',       title:'Run 3',           cat:'arcade',   emoji:'🏃', badge:'Popular',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-run-3' },
+  { id:'papas',      title:"Papa's Freezeria", cat:'arcade',  emoji:'🍦',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-papas-freezeria' },
+  { id:'idleshark',  title:'Idle Shark',      cat:'arcade',   emoji:'🦈',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-idle-shark-world' },
+  { id:'bloons',     title:'Bloons Tower Defense', cat:'strategy', emoji:'🎈',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-bloons-tower-defense-5' },
+  { id:'slope',      title:'Slope',           cat:'arcade',   emoji:'🎿', badge:'Hot',
+    type:'iframe',   url:'https://slope-game.github.io/' },
+  { id:'snake',      title:'Google Snake',    cat:'classic',  emoji:'🐍',
+    type:'iframe',   url:'https://snake.googlemaps.com/' },
+  { id:'clicker',    title:'Adventure Capitalist', cat:'arcade', emoji:'💰',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-adventure-capitalist' },
+  { id:'drift',      title:'Drift Boss',      cat:'sports',   emoji:'🏎️',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-drift-boss' },
+  { id:'fireboy',    title:'Fireboy & Watergirl', cat:'puzzle', emoji:'🔥',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-fireboy-and-watergirl-in-the-forest-temple' },
+  { id:'tankstrouble', title:'Tanks',         cat:'action',   emoji:'🪖',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-tanks' },
+  { id:'redball',    title:'Red Ball',        cat:'puzzle',   emoji:'🔴',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-red-ball-forever' },
+  { id:'stickman',   title:'Stickman Hook',   cat:'action',   emoji:'🕷️',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-stickman-hook' },
+  { id:'getaway',    title:'Getaway Shootout',cat:'action',   emoji:'🔫',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-getaway-shootout' },
+  { id:'funnyshooter', title:'Funny Shooter 2', cat:'action', emoji:'🎮',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-funny-shooter-2' },
+  { id:'drivemad',   title:'Drive Mad',       cat:'sports',   emoji:'🚙',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-drive-mad' },
+  { id:'papas2',     title:"Papa's Burgeria",  cat:'arcade',  emoji:'🍔',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-papas-burgeria' },
+  { id:'wheelspin',  title:'Wheely 8',        cat:'puzzle',   emoji:'⚙️',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-wheely-8' },
+  { id:'gravityswitch', title:'Gravity Switch', cat:'arcade', emoji:'🌀',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-gravity-switch' },
+  { id:'monkeygo',   title:'Monkey GO Happy', cat:'puzzle',   emoji:'🐒',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-monkey-go-happy-stage-pack-4' },
+  { id:'colorswitch', title:'Color Switch',   cat:'arcade',   emoji:'🎨',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-color-switch' },
+  { id:'idlebreakout', title:'Idle Breakout',  cat:'arcade',  emoji:'🧱',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-idle-breakout' },
+  { id:'sprinter',   title:'Sprinter',        cat:'sports',   emoji:'🏃',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-sprinter' },
+  { id:'powerline',  title:'Powerline.io',    cat:'io',       emoji:'⚡',
+    type:'iframe',   url:'https://powerline.io' },
+  { id:'lordz',      title:'Lordz.io',        cat:'strategy', emoji:'⚔️',
+    type:'iframe',   url:'https://lordz.io' },
+  { id:'surviv',     title:'Surviv.io',       cat:'action',   emoji:'🔫',
+    type:'iframe',   url:'https://surviv.io' },
+  { id:'hexanaut',   title:'Hexanaut.io',     cat:'strategy', emoji:'🔷',
+    type:'iframe',   url:'https://hexanaut.io' },
+  { id:'taming',     title:'Taming.io',       cat:'io',       emoji:'🐉',
+    type:'iframe',   url:'https://taming.io' },
+  { id:'superhex',   title:'SuperHex.io',     cat:'io',       emoji:'🔶',
+    type:'iframe',   url:'https://superhex.io' },
+  { id:'foes',       title:'Foes.io',         cat:'io',       emoji:'⚔️',
+    type:'iframe',   url:'https://foes.io' },
+  { id:'splix',      title:'Splix.io',        cat:'io',       emoji:'📐',
+    type:'iframe',   url:'https://splix.io' },
+
+  // ── CLASSIC BUILT-IN JS GAMES ──
+  { id:'pong',       title:'Pong',            cat:'classic',  emoji:'🏓', badge:'Built-in',
+    type:'builtin',  game:'pong' },
+  { id:'snake2',     title:'Snake',           cat:'classic',  emoji:'🐍', badge:'Built-in',
+    type:'builtin',  game:'snake' },
+  { id:'brickbreak', title:'Brick Breaker',   cat:'classic',  emoji:'🧱', badge:'Built-in',
+    type:'builtin',  game:'brickbreak' },
+  { id:'flappy',     title:'Flappy Bird',     cat:'arcade',   emoji:'🐦', badge:'Built-in',
+    type:'builtin',  game:'flappy' },
+  { id:'tictactoe',  title:'Tic-Tac-Toe',     cat:'classic',  emoji:'✖️', badge:'Built-in',
+    type:'builtin',  game:'tictactoe' },
+  { id:'memory',     title:'Memory Match',    cat:'puzzle',   emoji:'🃏', badge:'Built-in',
+    type:'builtin',  game:'memory' },
+  { id:'reaction',   title:'Reaction Time',   cat:'arcade',   emoji:'⚡', badge:'Built-in',
+    type:'builtin',  game:'reaction' },
+  { id:'dino',       title:'Dino Run',        cat:'classic',  emoji:'🦖', badge:'Built-in',
+    type:'builtin',  game:'dino' },
+
+  // ── ADDITIONAL GAMES ──
+  { id:'minesweeper', title:'Minesweeper',    cat:'classic',  emoji:'💣',
+    type:'iframe',   url:'https://minesweeper.online/' },
+  { id:'skribbl',    title:'Skribbl.io',      cat:'arcade',   emoji:'✏️',
+    type:'iframe',   url:'https://skribbl.io' },
+  { id:'garticphone', title:'Gartic Phone',   cat:'arcade',   emoji:'📞',
+    type:'iframe',   url:'https://garticphone.com' },
+  { id:'lichess',    title:'Lichess Chess',   cat:'strategy', emoji:'♟️',
+    type:'iframe',   url:'https://lichess.org' },
+  { id:'sudoku',     title:'Sudoku',          cat:'puzzle',   emoji:'🔢',
+    type:'iframe',   url:'https://sudoku.com' },
+  { id:'wordl',      title:'Wordle',          cat:'puzzle',   emoji:'🟩', badge:'Trending',
+    type:'iframe',   url:'https://www.nytimes.com/games/wordle/index.html' },
+  { id:'geograph',   title:'GeoGuessr',       cat:'strategy', emoji:'🌍',
+    type:'iframe',   url:'https://www.geoguessr.com' },
+  { id:'skater',     title:'Skater XL Browser', cat:'sports', emoji:'🛹',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-skate-clash' },
+  { id:'basketbros', title:'BasketBros',      cat:'sports',   emoji:'🏀',
+    type:'iframe',   url:'https://basketbros.io' },
+  { id:'soccerphysics', title:'Soccer Physics', cat:'sports', emoji:'⚽',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-soccer-physics' },
+  { id:'iogames',    title:'iogames.space',   cat:'io',       emoji:'🕹️',
+    type:'iframe',   url:'https://iogames.space' },
+  { id:'agma',       title:'Agma.io',         cat:'io',       emoji:'🟢',
+    type:'iframe',   url:'https://agma.io' },
+  { id:'yohoho',     title:'Yohoho.io',       cat:'io',       emoji:'☠️',
+    type:'iframe',   url:'https://yohoho.io' },
+  { id:'warscrap',   title:'War Brokers',     cat:'action',   emoji:'🪖',
+    type:'iframe',   url:'https://warbrokers.io' },
+  { id:'miniroyale', title:'Mini Royale 2',   cat:'action',   emoji:'🔫',
+    type:'iframe',   url:'https://miniroyale.io' },
+  { id:'flightclub', title:'Wings.io',        cat:'action',   emoji:'🛩️',
+    type:'iframe',   url:'https://wings.io' },
+  { id:'hole',       title:'Hole.io',         cat:'io',       emoji:'🕳️',
+    type:'iframe',   url:'https://hole-io.com' },
+  { id:'bounzy',     title:'Bounzy!',         cat:'puzzle',   emoji:'💠',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-bounzy' },
+  { id:'rolly',      title:'Rolly Vortex',    cat:'arcade',   emoji:'🌀',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-rolly-vortex' },
+  { id:'ducklife',   title:'Duck Life 4',     cat:'arcade',   emoji:'🦆',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-duck-life-4' },
+  { id:'swords',     title:'Swords & Souls',  cat:'strategy', emoji:'⚔️',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-swords-and-souls' },
+  { id:'meandmine',  title:'Mine Clone',      cat:'action',   emoji:'⛏️',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-mine-clone-4' },
+  { id:'geometry',   title:'Geometry Dash (Lite)', cat:'arcade', emoji:'🔷', badge:'Fan Fav',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-geometry-dash-lite' },
+  { id:'fnaf',       title:'Five Nights (Scratch)', cat:'action', emoji:'🐻',
+    type:'iframe',   url:'https://scratch.mit.edu/projects/embed/151552047/?autostart=false' },
+  { id:'sprunki',    title:'Sprunki (Scratch)',cat:'arcade',  emoji:'🎵',
+    type:'iframe',   url:'https://scratch.mit.edu/projects/embed/1083098765/?autostart=false' },
+  { id:'platformer', title:'Generic Platformer', cat:'action', emoji:'🎮',
+    type:'iframe',   url:'https://scratch.mit.edu/projects/embed/10128407/?autostart=false' },
+  { id:'zombiehorde', title:'Zombie Horde',   cat:'action',   emoji:'🧟',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-zombie-horde' },
+
+  // ── RANDOM SERIES (Madpuffers) ──
+  { id:'basketrandom',  title:'Basket Random',     cat:'sports',   emoji:'🏀', badge:'🔥',
+    type:'iframe',   url:'https://www.crazygames.com/embed/basket-random' },
+  { id:'soccerrandom',  title:'Soccer Random',     cat:'sports',   emoji:'⚽', badge:'Hot',
+    type:'iframe',   url:'https://www.crazygames.com/embed/soccer-random' },
+  { id:'volleyrandom',  title:'Volleyball Random',  cat:'sports',  emoji:'🏐',
+    type:'iframe',   url:'https://www.crazygames.com/embed/volleyball-random' },
+  { id:'tennisr',       title:'Tennis Random',     cat:'sports',   emoji:'🎾',
+    type:'iframe',   url:'https://www.crazygames.com/embed/tennis-random' },
+  { id:'footballrandom',title:'Football Random',   cat:'sports',   emoji:'🏈',
+    type:'iframe',   url:'https://www.crazygames.com/embed/football-random' },
+  { id:'baseballrandom',title:'Baseball Random',   cat:'sports',   emoji:'⚾',
+    type:'iframe',   url:'https://www.crazygames.com/embed/baseball-random' },
+  { id:'boxingrandom',  title:'Boxing Random',     cat:'sports',   emoji:'🥊',
+    type:'iframe',   url:'https://www.crazygames.com/embed/boxing-random' },
+  { id:'icehockeyr',    title:'Ice Hockey Random', cat:'sports',   emoji:'🏒',
+    type:'iframe',   url:'https://www.crazygames.com/embed/ice-hockey-random' },
+  { id:'ragdollrandom', title:'Ragdoll Archers',   cat:'sports',   emoji:'🏹',
+    type:'iframe',   url:'https://www.crazygames.com/embed/ragdoll-archers' },
+  { id:'stickmanbrawl', title:'Stickman Brawl',    cat:'action',   emoji:'🥋',
+    type:'iframe',   url:'https://www.crazygames.com/embed/stickman-brawl' },
+
+  // ── LIFE / SIM ──
+  { id:'bitlife',       title:'BitLife (Unofficial)',cat:'simulation', emoji:'👤', badge:'Popular',
+    type:'iframe',   url:'https://bitlife.io' },
+  { id:'little_alchemy', title:'Little Alchemy 2', cat:'simulation', emoji:'⚗️', badge:'Trending',
+    type:'iframe',   url:'https://littlealchemy2.com' },
+  { id:'township',      title:'Townscaper',        cat:'simulation', emoji:'🏘️',
+    type:'iframe',   url:'https://oskarstalberg.com/Townscaper/' },
+  { id:'liferaft',      title:'Raft Wars 2',       cat:'action',   emoji:'🚤',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-raft-wars-2' },
+
+  // ── MORE CRAZYGAMES ──
+  { id:'1v1lol',        title:'1v1.LOL',           cat:'action',   emoji:'🏗️', badge:'🔥',
+    type:'iframe',   url:'https://www.crazygames.com/embed/1v1-lol' },
+  { id:'venge',         title:'Venge.io',          cat:'action',   emoji:'💀',
+    type:'iframe',   url:'https://venge.io' },
+  { id:'rooftopsnipers',title:'Rooftop Snipers',   cat:'action',   emoji:'🎯', badge:'Fan Fav',
+    type:'iframe',   url:'https://www.crazygames.com/embed/rooftop-snipers' },
+  { id:'stickmenfight', title:'Stickman Fighter',  cat:'action',   emoji:'🥊',
+    type:'iframe',   url:'https://www.crazygames.com/embed/stickman-fighter-epic-battle' },
+  { id:'duckduckclicker',title:'Clicker Heroes',   cat:'arcade',   emoji:'⚔️',
+    type:'iframe',   url:'https://www.clickerheroes.com' },
+  { id:'parkour',       title:'Parkour Block 3D',  cat:'action',   emoji:'🧗',
+    type:'iframe',   url:'https://www.crazygames.com/embed/parkour-block-3d' },
+  { id:'moto',          title:'Moto X3M',          cat:'sports',   emoji:'🏍️', badge:'Popular',
+    type:'iframe',   url:'https://www.crazygames.com/embed/moto-x3m' },
+  { id:'motox3mwinter', title:'Moto X3M Winter',   cat:'sports',   emoji:'❄️',
+    type:'iframe',   url:'https://www.crazygames.com/embed/moto-x3m-winter' },
+  { id:'motox3mpool',   title:'Moto X3M Pool Party',cat:'sports',  emoji:'🌊',
+    type:'iframe',   url:'https://www.crazygames.com/embed/moto-x3m-pool-party' },
+  { id:'stackball',     title:'Stack Ball',        cat:'arcade',   emoji:'🟠',
+    type:'iframe',   url:'https://www.crazygames.com/embed/stack-ball' },
+  { id:'amgong',        title:'Among Us (Fan)',     cat:'action',   emoji:'🔴',
+    type:'iframe',   url:'https://www.crazygames.com/embed/amogus' },
+  { id:'bridgerace',    title:'Bridge Race',       cat:'arcade',   emoji:'🌉',
+    type:'iframe',   url:'https://www.crazygames.com/embed/bridge-race' },
+  { id:'tanktrouble2',  title:'Tank Trouble',      cat:'action',   emoji:'💣',
+    type:'iframe',   url:'https://www.crazygames.com/embed/tank-trouble' },
+  { id:'zombiemission', title:'Zombie Mission 10', cat:'action',   emoji:'🧟',
+    type:'iframe',   url:'https://www.crazygames.com/embed/zombie-mission-10' },
+  { id:'snakegame',     title:'Snakeio',           cat:'io',       emoji:'🐍',
+    type:'iframe',   url:'https://snake.io' },
+  { id:'narrowone',     title:'Narrow One',        cat:'action',   emoji:'🏹', badge:'New',
+    type:'iframe',   url:'https://narrow.one' },
+  { id:'smashkarts',    title:'Smash Karts',       cat:'action',   emoji:'🏎️', badge:'🔥',
+    type:'iframe',   url:'https://smashkarts.io' },
+  { id:'getawayshoot2', title:'Getaway Shootout',  cat:'action',   emoji:'🏃',
+    type:'iframe',   url:'https://www.crazygames.com/embed/getaway-shootout' },
+  { id:'gun_mayhem',    title:'Gun Mayhem 2',      cat:'action',   emoji:'🔫',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-gun-mayhem-2' },
+  { id:'hextris',       title:'Hextris',           cat:'puzzle',   emoji:'🔶',
+    type:'iframe',   url:'https://hextris.io' },
+  { id:'trex',          title:'Chrome Dino',       cat:'classic',  emoji:'🦖',
+    type:'iframe',   url:'https://chromedino.com' },
+  { id:'papas3',        title:"Papa's Pizzeria",   cat:'arcade',   emoji:'🍕',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-papas-pizzeria' },
+  { id:'papas4',        title:"Papa's Cupcakeria", cat:'arcade',   emoji:'🧁',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-papas-cupcakeria' },
+  { id:'papas5',        title:"Papa's Pancakeria", cat:'arcade',   emoji:'🥞',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-papas-pancakeria' },
+  { id:'b-cubed',       title:'B-Cubed',           cat:'puzzle',   emoji:'🟦',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-b-cubed' },
+  { id:'bloxorz',       title:'Bloxorz',           cat:'puzzle',   emoji:'🟫',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-bloxorz' },
+  { id:'civclicker',    title:'Civ Clicker',       cat:'strategy', emoji:'🏛️',
+    type:'iframe',   url:'http://civclicker.sourceforge.net/civclicker/civclicker.html' },
+  { id:'freekick',      title:'Penalty Shooters 2',cat:'sports',   emoji:'⚽',
+    type:'iframe',   url:'https://www.crazygames.com/embed/penalty-shooters-2' },
+  { id:'basketstarss',  title:'Basketball Stars',  cat:'sports',   emoji:'⭐',
+    type:'iframe',   url:'https://www.crazygames.com/embed/basketball-stars' },
+  { id:'footballheads', title:'Football Heads',    cat:'sports',   emoji:'🏆',
+    type:'iframe',   url:'https://www.crazygames.com/embed/football-heads-2014-world-cup' },
+  { id:'twoplayerhockey',title:'2-Player Hockey',  cat:'sports',   emoji:'🥅',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-2-player-hockey' },
+  { id:'2playerpinball', title:'2-Player Pinball', cat:'arcade',   emoji:'🎰',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-two-player-pinball' },
+  { id:'worlds_hardest', title:"World's Hardest Game", cat:'puzzle', emoji:'😤', badge:'Hard',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-worlds-hardest-game' },
+  { id:'worlds_hardest2',title:"World's Hardest 2",cat:'puzzle',   emoji:'😭',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-worlds-hardest-game-2' },
+  { id:'jacksmith',     title:'Jacksmith',         cat:'strategy', emoji:'⚒️',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-jacksmith' },
+  { id:'drifthunters',  title:'Drift Hunters',     cat:'sports',   emoji:'🚗', badge:'Popular',
+    type:'iframe',   url:'https://www.crazygames.com/embed/drift-hunters' },
+  { id:'traffictom',    title:'Traffic Tom',       cat:'arcade',   emoji:'🚦',
+    type:'iframe',   url:'https://www.crazygames.com/embed/traffic-tom' },
+  { id:'dirtbike',      title:'Dirt Bike',         cat:'sports',   emoji:'🏍️',
+    type:'iframe',   url:'https://www.coolmathgames.com/0-dirt-bike' },
+  { id:'ninjahattori',  title:'Ninja Hattori',     cat:'action',   emoji:'🥷',
+    type:'iframe',   url:'https://www.crazygames.com/embed/ninja-run' },
+  { id:'buildnow',      title:'BuildNow GG',       cat:'action',   emoji:'🏗️', badge:'New',
+    type:'iframe',   url:'https://buildnow.gg' },
+  { id:'pokedle',       title:'Pokedle',           cat:'puzzle',   emoji:'🔴',
+    type:'iframe',   url:'https://pokedle.net' },
+  { id:'nerdlegame',    title:'Nerdle',            cat:'puzzle',   emoji:'🔢',
+    type:'iframe',   url:'https://nerdlegame.com' },
+  { id:'connections',   title:'NYT Connections',   cat:'puzzle',   emoji:'🔗', badge:'Trending',
+    type:'iframe',   url:'https://www.nytimes.com/games/connections' },
+  { id:'miniclip8ball', title:'8 Ball Pool',       cat:'sports',   emoji:'🎱', badge:'Classic',
+    type:'iframe',   url:'https://www.crazygames.com/embed/8-ball-pool-with-friends' },
+  { id:'curveball',     title:'Curve Ball 3D',     cat:'sports',   emoji:'🏓',
+    type:'iframe',   url:'https://www.crazygames.com/embed/curve-ball-3d' },
+  { id:'tabletennis',   title:'Table Tennis',      cat:'sports',   emoji:'🏓',
+    type:'iframe',   url:'https://www.crazygames.com/embed/table-tennis-world-tour' },
+  { id:'justfall',      title:'JustFall.LOL',      cat:'action',   emoji:'🕳️',
+    type:'iframe',   url:'https://justfall.lol' },
+  { id:'garfield',      title:'Garfield Kart',     cat:'sports',   emoji:'😸',
+    type:'iframe',   url:'https://www.crazygames.com/embed/garfield-kart' },
+  { id:'kartrider',     title:'Kart Fighter',      cat:'sports',   emoji:'🏁',
+    type:'iframe',   url:'https://www.crazygames.com/embed/kart-fighter' },
+  { id:'bulletforce',   title:'Bullet Force',      cat:'action',   emoji:'💥', badge:'FPS',
+    type:'iframe',   url:'https://www.crazygames.com/embed/bullet-force-multiplayer' },
+  { id:'warzone',       title:'Warzone.io',        cat:'strategy', emoji:'🗺️',
+    type:'iframe',   url:'https://warzone.io' },
+  { id:'tribal',        title:'Tribal Wars',       cat:'strategy', emoji:'⚔️',
+    type:'iframe',   url:'https://www.tribalwars.net' },
+  { id:'spacecompany',  title:'Space Company',     cat:'strategy', emoji:'🚀',
+    type:'iframe',   url:'https://sparticle999.github.io/SpaceCompany/' },
+  { id:'cellmachine',   title:'Cell Machine',      cat:'strategy', emoji:'🧬',
+    type:'iframe',   url:'https://cellmachine.net' },
+  { id:'shapez',        title:'Shapez.io',         cat:'strategy', emoji:'🏭', badge:'New',
+    type:'iframe',   url:'https://shapez.io' },
+  { id:'dinostrike',    title:'Dino Strike',       cat:'action',   emoji:'🦕',
+    type:'iframe',   url:'https://www.crazygames.com/embed/dino-strike' },
+  { id:'motox3mspooky', title:'Moto X3M Spooky',  cat:'sports',   emoji:'👻',
+    type:'iframe',   url:'https://www.crazygames.com/embed/moto-x3m-spooky-land' },
+  { id:'offroaders',    title:'Off-Road Offroaders',cat:'sports',  emoji:'🚙',
+    type:'iframe',   url:'https://www.crazygames.com/embed/offroaders' },
+  { id:'bigbangrace',   title:'Big Bang Racing',   cat:'sports',   emoji:'💨',
+    type:'iframe',   url:'https://www.crazygames.com/embed/big-bang-racing' },
+  { id:'cloudgame',     title:'Cloud Game Hub',    cat:'arcade',   emoji:'☁️',
+    type:'iframe',   url:'https://cloud.google.com/blog/products/games' },
+  { id:'hexgl',         title:'HexGL (Racing)',    cat:'sports',   emoji:'🔷', badge:'3D',
+    type:'iframe',   url:'https://hexgl.bkcore.com/play/' },
+];
+
+// ─────────────────────────────────────────────
+//  BUILT-IN JS GAMES  (rendered into modal)
+// ─────────────────────────────────────────────
+const BUILTIN_GAMES = {
+
+  pong: () => `
+<canvas id="c" width="700" height="480" style="display:block;margin:0 auto;background:#000;max-width:100%"></canvas>
+<style>body{background:#000;margin:0;display:flex;align-items:center;justify-content:center;height:100vh}</style>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');
+const W=c.width,H=c.height,PAD=12,PW=10,PH=80,BALL=10,SPD=5;
+let p1={y:H/2-PH/2,s:0},p2={y:H/2-PH/2,s:0};
+let bx=W/2,by=H/2,vx=SPD,vy=SPD*(Math.random()<.5?1:-1);
+let keys={};
+document.addEventListener('keydown',e=>keys[e.key]=true);
+document.addEventListener('keyup',e=>keys[e.key]=false);
+function draw(){
+  ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+  ctx.setLineDash([8,8]);ctx.strokeStyle='#333';ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#0ef';ctx.fillRect(PAD,p1.y,PW,PH);
+  ctx.fillStyle='#f0e';ctx.fillRect(W-PAD-PW,p2.y,PW,PH);
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(bx,by,BALL,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='bold 36px monospace';ctx.textAlign='center';
+  ctx.fillText(p1.s,W/4,50);ctx.fillText(p2.s,3*W/4,50);
+  ctx.fillStyle='#555';ctx.font='12px monospace';ctx.fillText('W/S   ↑/↓',W/2,H-10);
+}
+function update(){
+  if(keys['w']||keys['W'])p1.y=Math.max(0,p1.y-6);
+  if(keys['s']||keys['S'])p1.y=Math.min(H-PH,p1.y+6);
+  if(keys['ArrowUp'])p2.y=Math.max(0,p2.y-6);
+  if(keys['ArrowDown'])p2.y=Math.min(H-PH,p2.y+6);
+  bx+=vx;by+=vy;
+  if(by-BALL<0||by+BALL>H)vy=-vy;
+  if(bx-BALL<PAD+PW&&by>p1.y&&by<p1.y+PH){vx=Math.abs(vx);vy+=(by-(p1.y+PH/2))*0.1;}
+  if(bx+BALL>W-PAD-PW&&by>p2.y&&by<p2.y+PH){vx=-Math.abs(vx);vy+=(by-(p2.y+PH/2))*0.1;}
+  if(bx<0){p2.s++;reset();}if(bx>W){p1.s++;reset();}
+}
+function reset(){bx=W/2;by=H/2;vx=SPD*(vx>0?-1:1);vy=SPD*(Math.random()<.5?1:-1);}
+function loop(){update();draw();requestAnimationFrame(loop);}loop();
+<\/script>`,
+
+  snake: () => `
+<canvas id="c" width="480" height="480" style="display:block;margin:0 auto;background:#0a0a0a;max-width:100%"></canvas>
+<div style="color:#0ef;font-family:monospace;text-align:center;padding:8px;font-size:14px">Arrow Keys / WASD to move — Space to restart</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');
+const SZ=20,COLS=24,ROWS=24,TICK=120;
+let snake,dir,nextDir,food,score,dead,timer;
+function init(){snake=[{x:12,y:12},{x:11,y:12},{x:10,y:12}];dir={x:1,y:0};nextDir={x:1,y:0};score=0;dead=false;placeFood();}
+function placeFood(){food={x:Math.floor(Math.random()*COLS),y:Math.floor(Math.random()*ROWS)};}
+function update(){
+  if(dead)return;
+  dir=nextDir;
+  const head={x:(snake[0].x+dir.x+COLS)%COLS,y:(snake[0].y+dir.y+ROWS)%ROWS};
+  if(snake.some(s=>s.x===head.x&&s.y===head.y)){dead=true;return;}
+  snake.unshift(head);
+  if(head.x===food.x&&head.y===food.y){score++;placeFood();}else{snake.pop();}
+}
+function draw(){
+  ctx.fillStyle='#0a0a0a';ctx.fillRect(0,0,480,480);
+  snake.forEach((s,i)=>{
+    const t=1-i/snake.length;
+    ctx.fillStyle=\`hsl(\${160+i*2},100%,\${40+t*30}%)\`;
+    ctx.fillRect(s.x*SZ+1,s.y*SZ+1,SZ-2,SZ-2);
+  });
+  ctx.fillStyle='#ff4466';ctx.beginPath();ctx.arc(food.x*SZ+SZ/2,food.y*SZ+SZ/2,SZ/2-2,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#0ef';ctx.font='bold 16px monospace';ctx.textAlign='left';ctx.fillText('Score: '+score,8,20);
+  if(dead){ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(0,0,480,480);ctx.fillStyle='#f44';ctx.font='bold 40px monospace';ctx.textAlign='center';ctx.fillText('GAME OVER',240,210);ctx.fillStyle='#0ef';ctx.font='20px monospace';ctx.fillText('Score: '+score,240,255);ctx.fillStyle='#aaa';ctx.font='15px monospace';ctx.fillText('Space to restart',240,290);}
+}
+document.addEventListener('keydown',e=>{
+  const m={ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0},w:{x:0,y:-1},s:{x:0,y:1},a:{x:-1,y:0},d:{x:1,y:0}};
+  if(e.key===' '&&dead){init();}
+  if(m[e.key]&&!(m[e.key].x===-dir.x&&m[e.key].y===-dir.y))nextDir=m[e.key];
+  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();
+});
+init();setInterval(()=>{update();draw();},TICK);
+<\/script>`,
+
+  brickbreak: () => `
+<canvas id="c" width="600" height="480" style="display:block;margin:0 auto;background:#050510;max-width:100%"></canvas>
+<div style="color:#0ef;font-family:monospace;text-align:center;padding:6px;font-size:13px">Mouse / Arrow Keys — Space to launch</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');
+const W=600,H=480,PW=90,PH=12,BR=8,BC=8,BW=62,BH=22,BMARX=10,BMART=50,BGAP=6;
+let px=W/2-PW/2,py=H-40,bx,by,vx,vy,launched,lives,score,bricks,lost,won;
+const COLORS=['#ff3cac','#7b2fff','#00e5ff','#00ff88','#ffd700','#ff6b35'];
+function init(){
+  px=W/2-PW/2;bx=W/2;by=py-BR-2;vx=0;vy=0;launched=false;lives=3;score=0;lost=false;won=false;
+  bricks=[];
+  for(let r=0;r<BR;r++)for(let col=0;col<BC;col++)
+    bricks.push({x:BMARX+col*(BW+BGAP),y:BMART+r*(BH+BGAP),alive:true,hp:r<2?2:1,col:COLORS[r%COLORS.length]});
+}
+function movePad(x){px=Math.max(0,Math.min(W-PW,x-PW/2));}
+c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();movePad((e.clientX-r.left)*(W/r.width));});
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft')px=Math.max(0,px-18);
+  if(e.key==='ArrowRight')px=Math.min(W-PW,px+18);
+  if(e.key===' '){if(!launched){launched=true;vx=3;vy=-5;}else if(lost||won)init();}
+  if(['ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();
+});
+function update(){
+  if(!launched){bx=px+PW/2;return;}
+  bx+=vx;by+=vy;
+  if(bx-BR<0){bx=BR;vx=Math.abs(vx);}
+  if(bx+BR>W){bx=W-BR;vx=-Math.abs(vx);}
+  if(by-BR<0){by=BR;vy=Math.abs(vy);}
+  if(by+BR>py&&by-BR<py+PH&&bx>px&&bx<px+PW){vy=-Math.abs(vy);vx+=(bx-(px+PW/2))*0.05;}
+  if(by>H){lives--;if(lives<=0){lost=true;}else{bx=px+PW/2;by=py-BR-2;launched=false;vx=0;vy=0;}}
+  bricks.forEach(b=>{
+    if(!b.alive)return;
+    if(bx+BR>b.x&&bx-BR<b.x+BW&&by+BR>b.y&&by-BR<b.y+BH){
+      b.hp--;if(b.hp<=0)b.alive=false;
+      const ox=Math.min(bx+BR-b.x,b.x+BW-(bx-BR));
+      const oy=Math.min(by+BR-b.y,b.y+BH-(by-BR));
+      if(ox<oy)vx=-vx;else vy=-vy;
+      score+=10;
+    }
+  });
+  if(bricks.every(b=>!b.alive))won=true;
+}
+function draw(){
+  ctx.fillStyle='#050510';ctx.fillRect(0,0,W,H);
+  bricks.forEach(b=>{
+    if(!b.alive)return;
+    ctx.fillStyle=b.hp>1?'#fff':b.col;
+    ctx.beginPath();ctx.roundRect(b.x,b.y,BW,BH,4);ctx.fill();
+    ctx.fillStyle=b.hp>1?b.col:'rgba(0,0,0,.3)';
+    ctx.font='bold 11px monospace';ctx.textAlign='center';
+    if(b.hp>1)ctx.fillText('2',b.x+BW/2,b.y+BH/2+4);
+  });
+  ctx.fillStyle='#0ef';ctx.beginPath();ctx.roundRect(px,py,PW,PH,6);ctx.fill();
+  ctx.beginPath();ctx.arc(bx,by,BR,0,Math.PI*2);
+  ctx.fillStyle='#fff';ctx.fill();
+  ctx.fillStyle='#0ef';ctx.font='bold 15px monospace';ctx.textAlign='left';ctx.fillText('Score: '+score,8,22);
+  ctx.fillStyle='#f44';ctx.fillText('Lives: '+'❤️'.repeat(lives),8,42);
+  if(!launched&&!lost&&!won){ctx.fillStyle='#aaa';ctx.font='14px monospace';ctx.textAlign='center';ctx.fillText('Space to launch',W/2,H-8);}
+  if(lost){ctx.fillStyle='rgba(0,0,0,.7)';ctx.fillRect(0,0,W,H);ctx.fillStyle='#f44';ctx.font='bold 44px monospace';ctx.textAlign='center';ctx.fillText('GAME OVER',W/2,H/2-20);ctx.fillStyle='#aaa';ctx.font='16px monospace';ctx.fillText('Space to restart',W/2,H/2+24);}
+  if(won){ctx.fillStyle='rgba(0,0,0,.7)';ctx.fillRect(0,0,W,H);ctx.fillStyle='#0f8';ctx.font='bold 44px monospace';ctx.textAlign='center';ctx.fillText('YOU WIN!',W/2,H/2-20);ctx.fillStyle='#aaa';ctx.font='16px monospace';ctx.fillText('Space to restart',W/2,H/2+24);}
+}
+init();function loop(){update();draw();requestAnimationFrame(loop);}loop();
+<\/script>`,
+
+  flappy: () => `
+<canvas id="c" width="400" height="550" style="display:block;margin:0 auto;background:#1a1a2e;max-width:100%"></canvas>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');
+const W=400,H=550,G=0.38,JUMP=-7.5,GAP=140,PIPEW=52,SPEED=2.8;
+let bird,pipes,score,best,state;
+best=0;
+function init(){bird={x:100,y:H/2,v:0,r:16};pipes=[];score=0;state='idle';}
+function addPipe(){const top=60+Math.random()*(H-GAP-120);pipes.push({x:W,top,scored:false});}
+function jump(){if(state==='idle')state='play';if(state==='dead'){init();}else{bird.v=JUMP;}}
+c.addEventListener('click',jump);
+document.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){jump();e.preventDefault();}});
+let tick=0;
+function update(){
+  if(state!=='play')return;
+  bird.v+=G;bird.y+=bird.v;
+  if(++tick%70===0)addPipe();
+  pipes.forEach(p=>p.x-=SPEED);
+  pipes=pipes.filter(p=>p.x>-PIPEW);
+  for(const p of pipes){
+    const bx=bird.x,by=bird.y,r=bird.r-2;
+    if(bx+r>p.x&&bx-r<p.x+PIPEW&&(by-r<p.top||by+r>p.top+GAP)){state='dead';best=Math.max(best,score);return;}
+    if(!p.scored&&p.x+PIPEW<bird.x){score++;p.scored=true;}
+  }
+  if(bird.y+bird.r>H||bird.y-bird.r<0){state='dead';best=Math.max(best,score);}
+}
+function draw(){
+  ctx.fillStyle='#1a1a2e';ctx.fillRect(0,0,W,H);
+  // pipes
+  pipes.forEach(p=>{
+    const g=ctx.createLinearGradient(p.x,0,p.x+PIPEW,0);
+    g.addColorStop(0,'#2ecc71');g.addColorStop(1,'#27ae60');
+    ctx.fillStyle=g;
+    ctx.fillRect(p.x,0,PIPEW,p.top);
+    ctx.fillRect(p.x,p.top+GAP,PIPEW,H);
+    ctx.fillStyle='#1e8449';
+    ctx.fillRect(p.x-4,p.top-18,PIPEW+8,18);
+    ctx.fillRect(p.x-4,p.top+GAP,PIPEW+8,18);
+  });
+  // bird
+  ctx.save();ctx.translate(bird.x,bird.y);ctx.rotate(Math.min(Math.max(bird.v*0.06,-0.5),0.8));
+  ctx.fillStyle='#f1c40f';ctx.beginPath();ctx.arc(0,0,bird.r,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#e67e22';ctx.beginPath();ctx.ellipse(bird.r-2,2,8,5,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(5,-5,5,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#333';ctx.beginPath();ctx.arc(7,-5,2.5,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+  // score
+  ctx.fillStyle='#fff';ctx.font='bold 28px monospace';ctx.textAlign='center';ctx.fillText(score,W/2,46);
+  if(state==='idle'){ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(0,0,W,H);ctx.fillStyle='#0ef';ctx.font='bold 34px monospace';ctx.fillText('FLAPPY BIRD',W/2,H/2-30);ctx.fillStyle='#aaa';ctx.font='17px monospace';ctx.fillText('Click or Space to start',W/2,H/2+14);}
+  if(state==='dead'){ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(0,0,W,H);ctx.fillStyle='#f44';ctx.font='bold 38px monospace';ctx.fillText('GAME OVER',W/2,H/2-40);ctx.fillStyle='#fff';ctx.font='20px monospace';ctx.fillText('Score: '+score,W/2,H/2+4);ctx.fillStyle='#aaa';ctx.font='15px monospace';ctx.fillText('Best: '+best,W/2,H/2+32);ctx.fillText('Click to restart',W/2,H/2+60);}
+}
+init();function loop(){update();draw();requestAnimationFrame(loop);}loop();
+<\/script>`,
+
+  tictactoe: () => `
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:480px;background:#050510;font-family:Orbitron,monospace;color:#e2e8f0">
+<div id="msg" style="font-size:1.3rem;margin-bottom:24px;color:#00e5ff;min-height:2rem;font-weight:700"></div>
+<div id="board" style="display:grid;grid-template-columns:repeat(3,110px);gap:8px"></div>
+<button onclick="restart()" style="margin-top:28px;background:linear-gradient(90deg,#7b2fff,#00e5ff);border:none;color:#fff;font-family:Orbitron,monospace;font-size:1rem;font-weight:700;padding:12px 36px;border-radius:999px;cursor:pointer;letter-spacing:2px">RESTART</button>
+</div>
+<script>
+let board,turn,over;
+const msg=document.getElementById('msg'),grid=document.getElementById('board');
+const WIN=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function restart(){board=Array(9).fill('');turn='X';over=false;render();msg.textContent="Player X's turn";}
+function click(i){
+  if(board[i]||over)return;
+  board[i]=turn;
+  const w=WIN.find(c=>c.every(x=>board[x]===turn));
+  if(w){over=true;msg.innerHTML='<span style="color:'+(turn==='X'?'#ff3cac':'#00e5ff')+'">Player '+turn+' WINS! 🎉</span>';render(w);return;}
+  if(board.every(Boolean)){over=true;msg.textContent="It's a draw!";render();return;}
+  turn=turn==='X'?'O':'X';msg.textContent="Player "+turn+"'s turn";render();
+}
+function render(win=[]){
+  grid.innerHTML='';
+  board.forEach((v,i)=>{
+    const b=document.createElement('div');
+    b.style.cssText='width:110px;height:110px;background:'+(win.includes(i)?'rgba(0,229,255,.15)':'#0d1220')+';border:1px solid #1e2d4a;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:3rem;cursor:pointer;transition:background .2s;';
+    b.innerHTML=v==='X'?'<span style="color:#ff3cac">✕</span>':v==='O'?'<span style="color:#00e5ff">○</span>':'';
+    b.onclick=()=>click(i);
+    b.onmouseenter=()=>{if(!v&&!over)b.style.background='#1a2438';};
+    b.onmouseleave=()=>{if(!v)b.style.background='#0d1220';};
+    grid.appendChild(b);
+  });
+}
+restart();
+<\/script>`,
+
+  memory: () => `
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:480px;background:#050510;font-family:Exo 2,sans-serif;padding:20px">
+<div style="display:flex;gap:30px;margin-bottom:18px;color:#e2e8f0;font-size:1rem">
+  <span>Moves: <b id="moves" style="color:#00e5ff">0</b></span>
+  <span>Matches: <b id="matches" style="color:#ff3cac">0</b>/8</span>
+</div>
+<div id="grid" style="display:grid;grid-template-columns:repeat(4,80px);gap:10px"></div>
+<button onclick="restart()" style="margin-top:22px;background:linear-gradient(90deg,#7b2fff,#00e5ff);border:none;color:#fff;font-family:Orbitron,monospace;font-size:.85rem;font-weight:700;padding:10px 28px;border-radius:999px;cursor:pointer">SHUFFLE</button>
+</div>
+<script>
+const EMOJIS=['🎮','⚡','🔥','🌀','💎','🏆','🎯','🚀'];
+let cards,flipped,matched,moves;
+function restart(){
+  const deck=[...EMOJIS,...EMOJIS].sort(()=>Math.random()-.5);
+  cards=deck.map((e,i)=>({id:i,emoji:e,flipped:false,matched:false}));
+  flipped=[];matched=0;moves=0;render();
+}
+function click(i){
+  const c=cards[i];
+  if(c.matched||c.flipped||flipped.length===2)return;
+  c.flipped=true;flipped.push(i);render();
+  if(flipped.length===2){
+    moves++;document.getElementById('moves').textContent=moves;
+    const [a,b]=flipped;
+    if(cards[a].emoji===cards[b].emoji){cards[a].matched=cards[b].matched=true;matched++;document.getElementById('matches').textContent=matched;flipped=[];render();}
+    else{setTimeout(()=>{cards[a].flipped=cards[b].flipped=false;flipped=[];render();},900);}
+  }
+}
+function render(){
+  const g=document.getElementById('grid');g.innerHTML='';
+  cards.forEach((c,i)=>{
+    const d=document.createElement('div');
+    const show=c.flipped||c.matched;
+    d.style.cssText='width:80px;height:80px;background:'+(c.matched?'rgba(0,229,255,.15)':show?'#1a2438':'#0d1220')+';border:1px solid '+(c.matched?'#00e5ff':show?'#7b2fff':'#1e2d4a')+';border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;transition:all .2s;';
+    d.textContent=show?c.emoji:'❓';
+    d.onclick=()=>click(i);
+    g.appendChild(d);
+  });
+}
+restart();
+<\/script>`,
+
+  reaction: () => `
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:480px;background:#050510;font-family:Orbitron,monospace;color:#e2e8f0;text-align:center;padding:30px">
+<h2 style="color:#00e5ff;font-size:1.6rem;margin-bottom:10px">REACTION TIME</h2>
+<p style="color:#64748b;font-size:.9rem;margin-bottom:30px">Click when the screen turns GREEN</p>
+<div id="box" onclick="handleClick()" style="width:320px;height:260px;border-radius:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#0d1220;border:2px solid #1e2d4a;transition:background .15s;margin-bottom:24px">
+  <span id="boxMsg" style="font-size:1.2rem;color:#64748b">Click to start</span>
+</div>
+<div id="history" style="color:#aaa;font-size:.85rem;min-height:60px"></div>
+</div>
+<script>
+let state='idle',t0,timer,results=[];
+function handleClick(){
+  if(state==='idle'){start();}
+  else if(state==='waiting'){earlyClick();}
+  else if(state==='go'){register();}
+  else if(state==='result'){start();}
+}
+function start(){
+  clearTimeout(timer);state='waiting';
+  setBox('#0d1220','#1e2d4a','Get ready...');
+  const delay=1500+Math.random()*3000;
+  timer=setTimeout(go,delay);
+}
+function go(){state='go';t0=Date.now();setBox('#00c851','#00c851','<span style="color:#000;font-size:1.4rem;font-weight:900">CLICK NOW!</span>');}
+function earlyClick(){clearTimeout(timer);state='result';setBox('#ff4444','#ff4444','Too early! Click to retry');}
+function register(){
+  const ms=Date.now()-t0;results.push(ms);if(results.length>5)results.shift();
+  state='result';
+  const avg=Math.round(results.reduce((a,b)=>a+b,0)/results.length);
+  setBox('#050510','#00e5ff',\`<span style="color:#00e5ff;font-size:1.6rem">\${ms}ms</span>\`);
+  document.getElementById('history').innerHTML='Last results: '+results.join(' | ')+'ms<br>Average: '+avg+'ms<br><span style="color:#7b2fff;font-size:.75rem">Click to try again</span>';
+}
+function setBox(bg,border,html){
+  const b=document.getElementById('box');b.style.background=bg;b.style.borderColor=border;document.getElementById('boxMsg').innerHTML=html;
+}
+<\/script>`,
+
+  dino: () => `
+<canvas id="c" width="700" height="200" style="display:block;margin:0 auto;background:#e8e8e8;max-width:100%"></canvas>
+<div style="color:#555;font-family:monospace;text-align:center;padding:8px;font-size:13px;background:#e8e8e8">Space / Click to jump — Double-tap for double jump!</div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');
+const W=700,H=200,GY=155,G=0.7,JUMP=-13,SPD0=5;
+let dino,obstacles,score,hi,speed,frame,state;hi=0;
+function init(){dino={x:80,y:GY,vy:0,onG:true,jumps:0,h:44,w:34};obstacles=[];score=0;speed=SPD0;frame=0;state='idle';}
+function jump(){
+  if(state==='idle'){state='play';}
+  else if(state==='dead'){init();state='play';return;}
+  if(dino.jumps<2){dino.vy=JUMP-(dino.jumps===1?2:0);dino.onG=false;dino.jumps++;}
+}
+c.addEventListener('click',jump);
+document.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){jump();e.preventDefault();}});
+function update(){
+  if(state!=='play')return;
+  frame++;score++;speed=SPD0+score/600;
+  dino.vy+=G;dino.y+=dino.vy;
+  if(dino.y>=GY){dino.y=GY;dino.onG=true;dino.vy=0;dino.jumps=0;}
+  if(frame%Math.max(50,90-score/150)===0)obstacles.push({x:W,w:20+Math.random()*20,h:30+Math.random()*30});
+  obstacles.forEach(o=>o.x-=speed);
+  obstacles=obstacles.filter(o=>o.x>-40);
+  for(const o of obstacles){
+    if(dino.x+dino.w-6>o.x+4&&dino.x+6<o.x+o.w-4&&dino.y+dino.h-4>GY+H-200-o.h+4){state='dead';hi=Math.max(hi,Math.floor(score/6));return;}
+  }
+}
+function draw(){
+  ctx.fillStyle='#e8e8e8';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#555';ctx.fillRect(0,GY+44,W,2);
+  // dino
+  const dx=dino.x,dy=dino.y;
+  ctx.fillStyle='#333';
+  ctx.fillRect(dx,dy,dino.w,dino.h);
+  ctx.fillStyle='#e8e8e8';ctx.fillRect(dx+18,dy+6,10,8);
+  ctx.fillStyle='#333';ctx.fillRect(dx+22,dy+8,4,4);
+  // legs animate
+  const l=frame%20<10?1:0;
+  ctx.fillRect(dx+4,dy+dino.h,8,l?10:4);ctx.fillRect(dx+18,dy+dino.h,8,l?4:10);
+  // cactus
+  obstacles.forEach(o=>{
+    const oy=GY+44-o.h;
+    ctx.fillStyle='#2d8a00';
+    ctx.fillRect(o.x+o.w/2-5,oy,10,o.h);
+    ctx.fillRect(o.x,oy+10,o.w,8);
+    ctx.fillRect(o.x,oy+10,6,18);ctx.fillRect(o.x+o.w-6,oy+10,6,18);
+  });
+  ctx.fillStyle='#333';ctx.font='bold 16px monospace';ctx.textAlign='right';ctx.fillText('HI '+hi.toString().padStart(5,'0')+'  '+Math.floor(score/6).toString().padStart(5,'0'),W-10,24);
+  if(state==='idle'){ctx.fillStyle='rgba(200,200,200,.8)';ctx.fillRect(0,0,W,H);ctx.fillStyle='#333';ctx.font='bold 22px monospace';ctx.textAlign='center';ctx.fillText('Press Space / Click to start',W/2,H/2);}
+  if(state==='dead'){ctx.fillStyle='rgba(200,200,200,.7)';ctx.fillRect(0,0,W,H);ctx.fillStyle='#c0392b';ctx.font='bold 26px monospace';ctx.textAlign='center';ctx.fillText('GAME OVER',W/2,H/2-10);ctx.fillStyle='#333';ctx.font='14px monospace';ctx.fillText('Press Space / Click to restart',W/2,H/2+20);}
+}
+init();function loop(){update();draw();requestAnimationFrame(loop);}loop();
+<\/script>`,
+};
+
+// ─────────────────────────────────────────────
+//  RENDER GRID
+// ─────────────────────────────────────────────
+const grid = document.getElementById('gameGrid');
+
+function renderCards(games) {
+  grid.innerHTML = '';
+  games.forEach(game => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.cat = game.cat;
+    card.dataset.id = game.id;
+    card.innerHTML = `
+      <div class="card-thumb-placeholder">${game.emoji}</div>
+      ${game.badge ? `<div class="card-badge">${game.badge}</div>` : ''}
+      <div class="card-body">
+        <div class="card-title">${game.title}</div>
+        <div class="card-tag">${game.cat}</div>
+      </div>
+      <button class="card-play-btn">▶ PLAY NOW</button>
+    `;
+    card.addEventListener('click', () => openGame(game));
+    grid.appendChild(card);
+  });
+}
+
+renderCards(GAMES);
+applyFilters();
+
+// ─────────────────────────────────────────────
+//  FILTER + SEARCH
+// ─────────────────────────────────────────────
+let activecat = 'all';
+let searchTerm = '';
+
+function applyFilters() {
+  let visible = 0;
+  document.querySelectorAll('.card').forEach(card => {
+    const id = card.dataset.id;
+    const game = GAMES.find(g => g.id === id);
+    const catMatch = activecat === 'all' || game.cat === activecat;
+    const searchMatch = !searchTerm || game.title.toLowerCase().includes(searchTerm) || game.cat.includes(searchTerm);
+    if (catMatch && searchMatch) { card.classList.remove('hidden'); visible++; }
+    else card.classList.add('hidden');
+  });
+  document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  const label = activecat === 'all' ? 'All Games' : activecat.charAt(0).toUpperCase() + activecat.slice(1);
+  document.getElementById('sectionTitle').textContent = `${label} — ${visible} Games`;
+}
+
+document.getElementById('catNav').addEventListener('click', e => {
+  if (!e.target.matches('.cat-btn')) return;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  activecat = e.target.dataset.cat;
+  applyFilters();
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchTerm = e.target.value.toLowerCase().trim();
+  applyFilters();
+});
+
+// ─────────────────────────────────────────────
+//  MODAL
+// ─────────────────────────────────────────────
+const overlay = document.getElementById('modalOverlay');
+const modalTitle = document.getElementById('modalTitle');
+const modalFrame = document.getElementById('modalFrame');
+
+function openGame(game) {
+  modalTitle.textContent = game.title;
+  modalFrame.innerHTML = '';
+
+  if (game.type === 'iframe') {
+    const iframe = document.createElement('iframe');
+    iframe.src = game.url;
+    iframe.allow = 'fullscreen; accelerometer; autoplay; clipboard-write; gyroscope';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'width:100%;height:100%;min-height:580px;border:none;';
+    modalFrame.appendChild(iframe);
+  } else if (game.type === 'builtin') {
+    const html = BUILTIN_GAMES[game.game]();
+    const container = document.createElement('div');
+    container.style.cssText = 'width:100%;min-height:540px;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;';
+    container.innerHTML = html;
+    modalFrame.appendChild(container);
+    // Re-execute scripts
+    container.querySelectorAll('script').forEach(s => {
+      const ns = document.createElement('script');
+      ns.textContent = s.textContent;
+      s.replaceWith(ns);
+    });
+  }
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  modalFrame.innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('btnClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.getElementById('btnFullscreen').addEventListener('click', () => {
+  const iframe = modalFrame.querySelector('iframe');
+  const target = iframe || document.getElementById('modal');
+  if (target.requestFullscreen) target.requestFullscreen();
+});
+</script>
+</body>
+</html>
