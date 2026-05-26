@@ -1,160 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FreePlay Zone — Unblocked Games</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg:#05070f; --surface:#0d1220; --card:#111827; --card2:#1a2438;
-      --border:#1e2d4a; --accent:#00e5ff; --accent2:#ff3cac; --accent3:#7b2fff;
-      --text:#e2e8f0; --muted:#64748b;
-      --glow:0 0 20px rgba(0,229,255,0.35);
-    }
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden;}
-    body::before{content:'';position:fixed;inset:0;
-      background-image:linear-gradient(rgba(0,229,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.03) 1px,transparent 1px);
-      background-size:40px 40px;pointer-events:none;z-index:0;}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FreePlay Zone — Unblocked Games</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#05070f;--surface:#0d1220;--card:#111827;--card2:#1a2438;--border:#1e2d4a;--accent:#00e5ff;--accent2:#ff3cac;--accent3:#7b2fff;--text:#e2e8f0;--muted:#64748b;--glow:0 0 22px rgba(0,229,255,.35);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+header{position:sticky;top:0;z-index:100;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--border);background:rgba(5,7,15,.97);backdrop-filter:blur(14px);}
+.logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1.35rem;background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;}
+.logo span{-webkit-text-fill-color:var(--accent2);}
+nav{display:flex;gap:6px;flex-wrap:wrap;}
+.cat-btn{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.68rem;font-weight:600;padding:5px 12px;border-radius:999px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .2s;}
+.cat-btn:hover,.cat-btn.active{background:var(--accent);border-color:var(--accent);color:#000;box-shadow:var(--glow);}
+.hero{position:relative;z-index:1;text-align:center;padding:46px 20px 28px;}
+.hero h1{font-family:'Orbitron',monospace;font-size:clamp(1.5rem,4vw,3.2rem);font-weight:900;line-height:1.1;margin-bottom:10px;}
+.line1{color:var(--text);display:block;}
+.line2{display:block;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:hue 5s linear infinite;}
+@keyframes hue{to{filter:hue-rotate(360deg);}}
+.hero p{color:var(--muted);font-size:.92rem;max-width:440px;margin:0 auto 20px;}
+.search-wrap{max-width:400px;margin:0 auto;}
+#searchInput{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:11px 20px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s,box-shadow .2s;}
+#searchInput:focus{border-color:var(--accent);box-shadow:var(--glow);}
+#searchInput::placeholder{color:var(--muted);}
+.section{position:relative;z-index:1;max-width:1380px;margin:0 auto;padding:16px 22px 56px;}
+.section-title{font-family:'Orbitron',monospace;font-size:.73rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:3px;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:13px;}
+.card{display:block;background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;position:relative;user-select:none;}
+.card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:var(--glow),0 10px 32px rgba(0,0,0,.4);}
+.card-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:2.8rem;background:linear-gradient(135deg,var(--surface),var(--card2));}
+.badge{position:absolute;top:9px;right:9px;background:var(--accent2);color:#fff;font-size:.58rem;font-weight:700;padding:3px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:1px;pointer-events:none;}
+.card-body{padding:9px 12px 3px;}
+.card-title{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-tag{font-size:.63rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.card-play{display:block;margin:8px 12px 12px;background:linear-gradient(90deg,var(--accent3),var(--accent));border-radius:7px;color:#fff;font-family:'Orbitron',monospace;font-size:.62rem;font-weight:700;letter-spacing:2px;padding:8px;text-align:center;pointer-events:none;}
+.card:hover .card-play{opacity:.82;}
+.card.hidden{display:none!important;}
+.no-results{display:none;text-align:center;padding:56px 20px;color:var(--muted);}
+.no-results .icon{font-size:3.6rem;margin-bottom:12px;}
+footer{position:relative;z-index:1;text-align:center;padding:22px;border-top:1px solid var(--border);color:var(--muted);font-size:.73rem;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+@media(max-width:600px){header{padding:11px 13px;}nav{justify-content:center;}.section{padding:11px 11px 36px;}.grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px;}}
 
-    /* HEADER */
-    header{position:sticky;top:0;z-index:100;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--border);background:rgba(5,7,15,.97);backdrop-filter:blur(14px);}
-    .logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1.4rem;background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;}
-    .logo span{-webkit-text-fill-color:var(--accent2);}
-    nav{display:flex;gap:7px;flex-wrap:wrap;}
-    .cat-btn{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Exo 2',sans-serif;font-size:.7rem;font-weight:600;padding:6px 13px;border-radius:999px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .2s;}
-    .cat-btn:hover,.cat-btn.active{background:var(--accent);border-color:var(--accent);color:#000;box-shadow:var(--glow);}
-
-    /* HERO */
-    .hero{position:relative;z-index:1;text-align:center;padding:50px 20px 32px;}
-    .hero h1{font-family:'Orbitron',monospace;font-size:clamp(1.6rem,4.5vw,3.4rem);font-weight:900;line-height:1.1;margin-bottom:12px;}
-    .line1{color:var(--text);display:block;}
-    .line2{display:block;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:hue 5s linear infinite;}
-    @keyframes hue{to{filter:hue-rotate(360deg);}}
-    .hero p{color:var(--muted);font-size:.95rem;max-width:460px;margin:0 auto 22px;}
-    .search-wrap{max-width:420px;margin:0 auto;}
-    #searchInput{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:12px 20px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:1rem;outline:none;transition:border-color .2s,box-shadow .2s;}
-    #searchInput:focus{border-color:var(--accent);box-shadow:var(--glow);}
-    #searchInput::placeholder{color:var(--muted);}
-
-    /* GRID */
-    .section{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:18px 24px 60px;}
-    .section-title{font-family:'Orbitron',monospace;font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:3px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
-    .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:14px;}
-
-    /* CARD */
-    .card{display:block;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;position:relative;user-select:none;}
-    .card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:var(--glow),0 10px 36px rgba(0,0,0,.45);}
-    .card-thumb{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,var(--surface),var(--card2));}
-    .badge{position:absolute;top:10px;right:10px;background:var(--accent2);color:#fff;font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:1px;pointer-events:none;}
-    .card-body{padding:10px 13px 3px;}
-    .card-title{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;color:var(--text);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .card-tag{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
-    .card-play{display:block;margin:9px 13px 13px;background:linear-gradient(90deg,var(--accent3),var(--accent));border-radius:8px;color:#fff;font-family:'Orbitron',monospace;font-size:.65rem;font-weight:700;letter-spacing:2px;padding:9px;text-align:center;pointer-events:none;}
-    .card:hover .card-play{opacity:.85;}
-    .card.hidden{display:none!important;}
-
-    .no-results{display:none;text-align:center;padding:60px 20px;color:var(--muted);}
-    .no-results .icon{font-size:4rem;margin-bottom:14px;}
-
-    footer{position:relative;z-index:1;text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:.75rem;}
-    ::-webkit-scrollbar{width:6px;}
-    ::-webkit-scrollbar-track{background:var(--bg);}
-    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
-    @media(max-width:640px){
-      header{padding:12px 14px;}
-      .logo{font-size:1.05rem;}
-      nav{justify-content:center;}
-      .section{padding:12px 12px 40px;}
-      .grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;}
-    }
-
-    /* ═══════════════════════════════
-       GAME PLAYER OVERLAY
-       Full-screen iframe that covers
-       the entire page when a game
-       is opened.
-    ═══════════════════════════════ */
-    #gameOverlay{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:9999;
-      flex-direction:column;
-      background:#000;
-    }
-    #gameOverlay.open{display:flex;}
-
-    #overlayBar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 16px;
-      height:46px;
-      min-height:46px;
-      background:#0a0a18;
-      border-bottom:1px solid var(--border);
-      flex-shrink:0;
-    }
-    #overlayTitle{
-      font-family:'Orbitron',monospace;
-      font-size:.9rem;
-      font-weight:700;
-      color:var(--accent);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .overlay-btns{display:flex;gap:8px;flex-shrink:0;margin-left:12px;}
-    .obtn{
-      background:var(--surface);
-      border:1px solid var(--border);
-      color:var(--text);
-      font-family:'Exo 2',sans-serif;
-      font-size:.75rem;
-      font-weight:600;
-      padding:5px 14px;
-      border-radius:7px;
-      cursor:pointer;
-      transition:background .15s;
-      white-space:nowrap;
-    }
-    .obtn:hover{background:var(--card2);}
-    .obtn.red:hover{background:#c0392b;border-color:#c0392b;}
-    .obtn.fs:hover{background:var(--accent3);border-color:var(--accent3);}
-
-    #gameFrame{
-      flex:1;
-      width:100%;
-      border:none;
-      display:block;
-      background:#000;
-    }
-
-    /* Blocked-site fallback message */
-    #blockedMsg{
-      display:none;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      flex:1;
-      gap:18px;
-      color:var(--text);
-      text-align:center;
-      padding:30px;
-    }
-    #blockedMsg .bicon{font-size:4rem;}
-    #blockedMsg h2{font-family:'Orbitron',monospace;color:var(--accent2);}
-    #blockedMsg p{color:var(--muted);max-width:440px;line-height:1.6;}
-    #blockedMsg a{color:var(--accent);text-decoration:none;font-weight:600;}
-    #blockedMsg a:hover{text-decoration:underline;}
-  </style>
+/* ── GAME OVERLAY ── */
+#gameOverlay{display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;background:#000;}
+#gameOverlay.open{display:flex;}
+#overlayBar{display:flex;align-items:center;gap:10px;padding:0 14px;height:44px;min-height:44px;background:#080814;border-bottom:1px solid var(--border);flex-shrink:0;}
+#overlayTitle{font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;color:var(--accent);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.obtn{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Exo 2',sans-serif;font-size:.72rem;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;transition:background .15s;white-space:nowrap;flex-shrink:0;}
+.obtn:hover{background:var(--card2);}
+#btnFS:hover{background:var(--accent3);border-color:var(--accent3);}
+#btnClose:hover{background:#b91c1c;border-color:#b91c1c;}
+#gameFrame{flex:1;width:100%;border:none;display:block;background:#000;}
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">FREE<span>PLAY</span> ZONE</div>
   <nav id="catNav">
@@ -166,272 +73,400 @@
     <button class="cat-btn" data-cat="sports">Sports</button>
     <button class="cat-btn" data-cat="io">IO Games</button>
     <button class="cat-btn" data-cat="classic">Classic</button>
-    <button class="cat-btn" data-cat="simulation">Simulation</button>
   </nav>
 </header>
 
-<!-- HERO -->
 <div class="hero">
-  <h1>
-    <span class="line1">UNBLOCKED GAMES</span>
-    <span class="line2">PLAY ANYWHERE, ANYTIME</span>
-  </h1>
-  <p>150+ free browser games — play instantly without leaving this page.</p>
-  <div class="search-wrap">
-    <input id="searchInput" type="text" placeholder="🔍  Search games..." autocomplete="off" />
-  </div>
+  <h1><span class="line1">UNBLOCKED GAMES</span><span class="line2">PLAY ANYWHERE, ANYTIME</span></h1>
+  <p>100+ embeddable games — plays right here, no redirects.</p>
+  <div class="search-wrap"><input id="searchInput" type="text" placeholder="🔍  Search games..." autocomplete="off"/></div>
 </div>
 
-<!-- GAME GRID -->
 <div class="section">
   <div class="section-title" id="sectionTitle">All Games</div>
   <div class="grid" id="gameGrid"></div>
-  <div class="no-results" id="noResults">
-    <div class="icon">👾</div>
-    <div>No games found. Try a different search!</div>
-  </div>
+  <div class="no-results" id="noResults"><div class="icon">👾</div><div>No games found!</div></div>
 </div>
 
-<footer>FreePlay Zone &mdash; All games hosted by their respective owners. &copy; 2025</footer>
+<footer>FreePlay Zone — games run in your browser via iframe or built-in JS. © 2025</footer>
 
-<!-- FULL-SCREEN GAME OVERLAY -->
+<!-- FULL-SCREEN OVERLAY -->
 <div id="gameOverlay">
   <div id="overlayBar">
     <div id="overlayTitle">Game</div>
-    <div class="overlay-btns">
-      <button class="obtn fs" id="btnFS" title="Fullscreen">⛶ Fullscreen</button>
-      <button class="obtn" id="btnReload" title="Reload game">↺ Reload</button>
-      <button class="obtn red" id="btnClose" title="Back to games">✕ Close</button>
-    </div>
+    <button class="obtn" id="btnFS">⛶ Fullscreen</button>
+    <button class="obtn" id="btnReload">↺ Reload</button>
+    <button class="obtn" id="btnClose">✕ Close</button>
   </div>
   <iframe id="gameFrame" allowfullscreen
-    allow="fullscreen *; autoplay *; clipboard-write *; encrypted-media *; gyroscope *; accelerometer *; microphone *; camera *; pointer-lock *"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-pointer-lock allow-top-navigation-by-user-activation allow-downloads"
+    allow="fullscreen *; autoplay *; clipboard-write *; gyroscope *; accelerometer *; microphone *; pointer-lock *"
+    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-pointer-lock allow-top-navigation-by-user-activation"
   ></iframe>
-  <div id="blockedMsg">
-    <div class="bicon">🚫</div>
-    <h2>This game blocks embedding</h2>
-    <p>Some game sites set headers that prevent iframes. You can still play it by opening it directly — it'll open in a new tab and should be unblocked there.</p>
-    <p id="blockedLink"></p>
-  </div>
 </div>
 
 <script>
+// ─────────────────────────────────────────────────────────────
+// GAME LIST
+// type:'iframe' = loads a URL known to allow embedding
+// type:'js'     = self-contained JS game rendered in-page
+// ─────────────────────────────────────────────────────────────
 var GAMES = [
-  // ── IO GAMES ──
-  {id:'slither',      title:'Slither.io',            cat:'io',         emoji:'🐍', badge:'Hot',      url:'https://slither.io'},
-  {id:'agar',         title:'Agar.io',               cat:'io',         emoji:'🔵',                   url:'https://agar.io'},
-  {id:'diep',         title:'Diep.io',               cat:'io',         emoji:'🔫',                   url:'https://diep.io'},
-  {id:'paper',        title:'Paper.io 2',            cat:'io',         emoji:'🗺️',                   url:'https://paper-io.com'},
-  {id:'wormate',      title:'Wormate.io',            cat:'io',         emoji:'🐛',                   url:'https://wormate.io'},
-  {id:'defly',        title:'Defly.io',              cat:'io',         emoji:'✈️',                   url:'https://defly.io'},
-  {id:'moomoo',       title:'MooMoo.io',             cat:'io',         emoji:'🐄',                   url:'https://moomoo.io'},
-  {id:'starve',       title:'Starve.io',             cat:'io',         emoji:'🌲',                   url:'https://starve.io'},
-  {id:'zombs',        title:'Zombs.io',              cat:'io',         emoji:'🧟',                   url:'https://zombs.io'},
-  {id:'brutal',       title:'Brutal.io',             cat:'io',         emoji:'💥',                   url:'https://brutal.io'},
-  {id:'powerline',    title:'Powerline.io',          cat:'io',         emoji:'⚡',                   url:'https://powerline.io'},
-  {id:'taming',       title:'Taming.io',             cat:'io',         emoji:'🐉',                   url:'https://taming.io'},
-  {id:'superhex',     title:'SuperHex.io',           cat:'io',         emoji:'🔶',                   url:'https://superhex.io'},
-  {id:'foes',         title:'Foes.io',               cat:'io',         emoji:'⚔️',                   url:'https://foes.io'},
-  {id:'splix',        title:'Splix.io',              cat:'io',         emoji:'📐',                   url:'https://splix.io'},
-  {id:'agma',         title:'Agma.io',               cat:'io',         emoji:'🟢',                   url:'https://agma.io'},
-  {id:'yohoho',       title:'Yohoho.io',             cat:'io',         emoji:'☠️',                   url:'https://yohoho.io'},
-  {id:'hole',         title:'Hole.io',               cat:'io',         emoji:'🕳️',                   url:'https://hole-io.com'},
-  {id:'snakeio',      title:'Snake.io',              cat:'io',         emoji:'🐍',                   url:'https://snake.io'},
-  {id:'spinz',        title:'Spinz.io',              cat:'io',         emoji:'🌀',                   url:'https://spinz.io'},
-  {id:'lordz',        title:'Lordz.io',              cat:'io',         emoji:'⚔️',                   url:'https://lordz.io'},
-  {id:'hexanaut',     title:'Hexanaut.io',           cat:'io',         emoji:'🔷',                   url:'https://hexanaut.io'},
-  {id:'warzone',      title:'Warzone.io',            cat:'io',         emoji:'🗺️',                   url:'https://warzone.io'},
+  // ── IO (these allow embedding) ──
+  {id:'slither',       title:'Slither.io',           cat:'io',      emoji:'🐍', badge:'Hot',     type:'iframe', url:'https://slither.io'},
+  {id:'diep',          title:'Diep.io',              cat:'io',      emoji:'🔫',                  type:'iframe', url:'https://diep.io'},
+  {id:'wormate',       title:'Wormate.io',           cat:'io',      emoji:'🐛',                  type:'iframe', url:'https://wormate.io'},
+  {id:'defly',         title:'Defly.io',             cat:'io',      emoji:'✈️',                  type:'iframe', url:'https://defly.io'},
+  {id:'moomoo',        title:'MooMoo.io',            cat:'io',      emoji:'🐄',                  type:'iframe', url:'https://moomoo.io'},
+  {id:'zombs',         title:'Zombs.io',             cat:'io',      emoji:'🧟',                  type:'iframe', url:'https://zombs.io'},
+  {id:'brutal',        title:'Brutal.io',            cat:'io',      emoji:'💥',                  type:'iframe', url:'https://brutal.io'},
+  {id:'powerline',     title:'Powerline.io',         cat:'io',      emoji:'⚡',                  type:'iframe', url:'https://powerline.io'},
+  {id:'taming',        title:'Taming.io',            cat:'io',      emoji:'🐉',                  type:'iframe', url:'https://taming.io'},
+  {id:'yohoho',        title:'Yohoho.io',            cat:'io',      emoji:'☠️',                  type:'iframe', url:'https://yohoho.io'},
+  {id:'snakeio',       title:'Snake.io',             cat:'io',      emoji:'🐍',                  type:'iframe', url:'https://snake.io'},
+  {id:'lordz',         title:'Lordz.io',             cat:'io',      emoji:'⚔️',                  type:'iframe', url:'https://lordz.io'},
+  {id:'warzone',       title:'Warzone.io',           cat:'io',      emoji:'🗺️',                  type:'iframe', url:'https://warzone.io'},
+  {id:'splix',         title:'Splix.io',             cat:'io',      emoji:'📐',                  type:'iframe', url:'https://splix.io'},
+  {id:'spinz',         title:'Spinz.io',             cat:'io',      emoji:'🌀',                  type:'iframe', url:'https://spinz.io'},
+  {id:'superhex',      title:'SuperHex.io',          cat:'io',      emoji:'🔶',                  type:'iframe', url:'https://superhex.io'},
 
   // ── ACTION ──
-  {id:'krunker',      title:'Krunker.io',            cat:'action',     emoji:'🎯', badge:'🔥',       url:'https://krunker.io'},
-  {id:'shellshock',   title:'Shell Shockers',        cat:'action',     emoji:'🥚',                   url:'https://shellshockers.io'},
-  {id:'ev',           title:'EV.io',                 cat:'action',     emoji:'⚡',                   url:'https://ev.io'},
-  {id:'minecraft',    title:'Eaglercraft (MC)',       cat:'action',     emoji:'⛏️', badge:'🔥',       url:'https://eaglercraft.com/mc/1.8.8/'},
-  {id:'venge',        title:'Venge.io',              cat:'action',     emoji:'💀',                   url:'https://venge.io'},
-  {id:'rooftopsnipers',title:'Rooftop Snipers',      cat:'action',     emoji:'🎯', badge:'Fan Fav',  url:'https://rooftopsnipers.io'},
-  {id:'1v1lol',       title:'1v1.LOL',               cat:'action',     emoji:'🏗️', badge:'🔥',       url:'https://1v1.lol'},
-  {id:'narrowone',    title:'Narrow One',            cat:'action',     emoji:'🏹', badge:'New',      url:'https://narrow.one'},
-  {id:'smashkarts',   title:'Smash Karts',           cat:'action',     emoji:'🏎️', badge:'🔥',       url:'https://smashkarts.io'},
-  {id:'surviv',       title:'Surviv.io',             cat:'action',     emoji:'🔫',                   url:'https://surviv.io'},
-  {id:'miniroyale',   title:'Mini Royale 2',         cat:'action',     emoji:'🔫',                   url:'https://miniroyale.io'},
-  {id:'warbrokers',   title:'War Brokers',           cat:'action',     emoji:'🪖',                   url:'https://warbrokers.io'},
-  {id:'wings',        title:'Wings.io',              cat:'action',     emoji:'🛩️',                   url:'https://wings.io'},
-  {id:'bulletforce',  title:'Bullet Force',          cat:'action',     emoji:'💥', badge:'FPS',      url:'https://www.bulletforcegame.com'},
-  {id:'buildnow',     title:'BuildNow GG',           cat:'action',     emoji:'🏗️', badge:'New',      url:'https://buildnow.gg'},
-  {id:'justfall',     title:'JustFall.LOL',          cat:'action',     emoji:'🕳️',                   url:'https://justfall.lol'},
-  {id:'stickman',     title:'Stickman Hook',         cat:'action',     emoji:'🕷️',                   url:'https://www.coolmathgames.com/0-stickman-hook'},
-  {id:'getaway',      title:'Getaway Shootout',      cat:'action',     emoji:'🔫',                   url:'https://www.coolmathgames.com/0-getaway-shootout'},
-  {id:'funnyshooter', title:'Funny Shooter 2',       cat:'action',     emoji:'🎮',                   url:'https://www.coolmathgames.com/0-funny-shooter-2'},
-  {id:'gunmayhem',    title:'Gun Mayhem 2',          cat:'action',     emoji:'🔫',                   url:'https://www.coolmathgames.com/0-gun-mayhem-2'},
-  {id:'tanks',        title:'Tanks',                 cat:'action',     emoji:'🪖',                   url:'https://www.coolmathgames.com/0-tanks'},
-  {id:'zombiehorde',  title:'Zombie Horde',          cat:'action',     emoji:'🧟',                   url:'https://www.coolmathgames.com/0-zombie-horde'},
-  {id:'parkour',      title:'Parkour Block 3D',      cat:'action',     emoji:'🧗',                   url:'https://www.crazygames.com/game/parkour-block-3d'},
-  {id:'stickmanbrawl',title:'Stickman Brawl',        cat:'action',     emoji:'🥋',                   url:'https://www.crazygames.com/game/stickman-brawl'},
-  {id:'vertix',       title:'Vertix.io',             cat:'action',     emoji:'🔺',                   url:'https://vertix.io'},
-  {id:'mineclone',    title:'Mine Clone 4',          cat:'action',     emoji:'⛏️',                   url:'https://www.coolmathgames.com/0-mine-clone-4'},
-  {id:'tankstrouble', title:'Tank Trouble',          cat:'action',     emoji:'💣',                   url:'https://tanktrouble.com'},
+  {id:'krunker',       title:'Krunker.io',           cat:'action',  emoji:'🎯', badge:'🔥',      type:'iframe', url:'https://krunker.io'},
+  {id:'shellshock',    title:'Shell Shockers',       cat:'action',  emoji:'🥚',                  type:'iframe', url:'https://shellshockers.io'},
+  {id:'ev',            title:'EV.io',                cat:'action',  emoji:'⚡',                  type:'iframe', url:'https://ev.io'},
+  {id:'venge',         title:'Venge.io',             cat:'action',  emoji:'💀',                  type:'iframe', url:'https://venge.io'},
+  {id:'narrowone',     title:'Narrow One',           cat:'action',  emoji:'🏹', badge:'New',     type:'iframe', url:'https://narrow.one'},
+  {id:'smashkarts',    title:'Smash Karts',          cat:'action',  emoji:'🏎️', badge:'🔥',      type:'iframe', url:'https://smashkarts.io'},
+  {id:'surviv',        title:'Surviv.io',            cat:'action',  emoji:'🔫',                  type:'iframe', url:'https://surviv.io'},
+  {id:'warbrokers',    title:'War Brokers',          cat:'action',  emoji:'🪖',                  type:'iframe', url:'https://warbrokers.io'},
+  {id:'wings',         title:'Wings.io',             cat:'action',  emoji:'🛩️',                  type:'iframe', url:'https://wings.io'},
+  {id:'buildnow',      title:'BuildNow GG',          cat:'action',  emoji:'🏗️', badge:'New',     type:'iframe', url:'https://buildnow.gg'},
+  {id:'1v1lol',        title:'1v1.LOL',              cat:'action',  emoji:'🏗️', badge:'🔥',      type:'iframe', url:'https://1v1.lol'},
+  {id:'justfall',      title:'JustFall.LOL',         cat:'action',  emoji:'🕳️',                  type:'iframe', url:'https://justfall.lol'},
+  {id:'vertix',        title:'Vertix.io',            cat:'action',  emoji:'🔺',                  type:'iframe', url:'https://vertix.io'},
+  {id:'tanktrouble',   title:'Tank Trouble',         cat:'action',  emoji:'💣',                  type:'iframe', url:'https://tanktrouble.com'},
+  {id:'rooftop',       title:'Rooftop Snipers',      cat:'action',  emoji:'🎯', badge:'Fan Fav', type:'iframe', url:'https://rooftopsnipers.io'},
 
   // ── ARCADE ──
-  {id:'slope',        title:'Slope',                 cat:'arcade',     emoji:'🎿', badge:'Hot',      url:'https://slope-game.github.io/'},
-  {id:'cookieclicker',title:'Cookie Clicker',        cat:'arcade',     emoji:'🍪',                   url:'https://orteil.dashnet.org/cookieclicker/'},
-  {id:'run3',         title:'Run 3',                 cat:'arcade',     emoji:'🏃', badge:'Popular',  url:'https://www.coolmathgames.com/0-run-3'},
-  {id:'geometrydash', title:'Geometry Dash Lite',    cat:'arcade',     emoji:'🔷', badge:'Fan Fav',  url:'https://www.coolmathgames.com/0-geometry-dash-lite'},
-  {id:'idlebreakout', title:'Idle Breakout',         cat:'arcade',     emoji:'🧱',                   url:'https://www.coolmathgames.com/0-idle-breakout'},
-  {id:'idleshark',    title:'Idle Shark World',      cat:'arcade',     emoji:'🦈',                   url:'https://www.coolmathgames.com/0-idle-shark-world'},
-  {id:'ducklife',     title:'Duck Life 4',           cat:'arcade',     emoji:'🦆',                   url:'https://www.coolmathgames.com/0-duck-life-4'},
-  {id:'colorswitch',  title:'Color Switch',          cat:'arcade',     emoji:'🎨',                   url:'https://www.coolmathgames.com/0-color-switch'},
-  {id:'gravityswitch',title:'Gravity Switch',        cat:'arcade',     emoji:'🌀',                   url:'https://www.coolmathgames.com/0-gravity-switch'},
-  {id:'rolly',        title:'Rolly Vortex',          cat:'arcade',     emoji:'🌀',                   url:'https://www.coolmathgames.com/0-rolly-vortex'},
-  {id:'stackball',    title:'Stack Ball',            cat:'arcade',     emoji:'🟠',                   url:'https://www.crazygames.com/game/stack-ball'},
-  {id:'bridgerace',   title:'Bridge Race',           cat:'arcade',     emoji:'🌉',                   url:'https://www.crazygames.com/game/bridge-race'},
-  {id:'adventure',    title:'Adventure Capitalist',  cat:'arcade',     emoji:'💰',                   url:'https://www.coolmathgames.com/0-adventure-capitalist'},
-  {id:'clickerhero',  title:'Clicker Heroes',        cat:'arcade',     emoji:'⚔️',                   url:'https://www.clickerheroes.com'},
-  {id:'skribbl',      title:'Skribbl.io',            cat:'arcade',     emoji:'✏️',                   url:'https://skribbl.io'},
-  {id:'garticphone',  title:'Gartic Phone',          cat:'arcade',     emoji:'📞',                   url:'https://garticphone.com'},
-  {id:'papas1',       title:"Papa's Freezeria",      cat:'arcade',     emoji:'🍦',                   url:'https://www.coolmathgames.com/0-papas-freezeria'},
-  {id:'papas2',       title:"Papa's Burgeria",       cat:'arcade',     emoji:'🍔',                   url:'https://www.coolmathgames.com/0-papas-burgeria'},
-  {id:'papas3',       title:"Papa's Pizzeria",       cat:'arcade',     emoji:'🍕',                   url:'https://www.coolmathgames.com/0-papas-pizzeria'},
-  {id:'papas4',       title:"Papa's Cupcakeria",     cat:'arcade',     emoji:'🧁',                   url:'https://www.coolmathgames.com/0-papas-cupcakeria'},
-  {id:'papas5',       title:"Papa's Pancakeria",     cat:'arcade',     emoji:'🥞',                   url:'https://www.coolmathgames.com/0-papas-pancakeria'},
-  {id:'monkeygo',     title:'Monkey GO Happy',       cat:'arcade',     emoji:'🐒',                   url:'https://www.coolmathgames.com/0-monkey-go-happy-stage-pack-4'},
-  {id:'bitlife',      title:'BitLife',               cat:'arcade',     emoji:'👤', badge:'Popular',  url:'https://bitlife.io'},
-  {id:'spacecompany', title:'Space Company',         cat:'arcade',     emoji:'🚀',                   url:'https://sparticle999.github.io/SpaceCompany/'},
-
-  // ── PUZZLE ──
-  {id:'2048',         title:'2048',                  cat:'puzzle',     emoji:'🔢', badge:'Classic',  url:'https://play2048.co'},
-  {id:'fireboy',      title:'Fireboy & Watergirl',   cat:'puzzle',     emoji:'🔥',                   url:'https://www.coolmathgames.com/0-fireboy-and-watergirl-in-the-forest-temple'},
-  {id:'redball',      title:'Red Ball Forever',      cat:'puzzle',     emoji:'🔴',                   url:'https://www.coolmathgames.com/0-red-ball-forever'},
-  {id:'wheely',       title:'Wheely 8',              cat:'puzzle',     emoji:'⚙️',                   url:'https://www.coolmathgames.com/0-wheely-8'},
-  {id:'bounzy',       title:'Bounzy!',               cat:'puzzle',     emoji:'💠',                   url:'https://www.coolmathgames.com/0-bounzy'},
-  {id:'bloxorz',      title:'Bloxorz',               cat:'puzzle',     emoji:'🟫',                   url:'https://www.coolmathgames.com/0-bloxorz'},
-  {id:'bcubed',       title:'B-Cubed',               cat:'puzzle',     emoji:'🟦',                   url:'https://www.coolmathgames.com/0-b-cubed'},
-  {id:'worldshard',   title:"World's Hardest Game",  cat:'puzzle',     emoji:'😤', badge:'Hard',     url:'https://www.coolmathgames.com/0-worlds-hardest-game'},
-  {id:'worldshard2',  title:"World's Hardest 2",     cat:'puzzle',     emoji:'😭',                   url:'https://www.coolmathgames.com/0-worlds-hardest-game-2'},
-  {id:'sudoku',       title:'Sudoku',                cat:'puzzle',     emoji:'🔢',                   url:'https://sudoku.com'},
-  {id:'wordle',       title:'Wordle',                cat:'puzzle',     emoji:'🟩', badge:'Trending', url:'https://www.nytimes.com/games/wordle/index.html'},
-  {id:'connections',  title:'NYT Connections',       cat:'puzzle',     emoji:'🔗', badge:'Trending', url:'https://www.nytimes.com/games/connections'},
-  {id:'hextris',      title:'Hextris',               cat:'puzzle',     emoji:'🔶',                   url:'https://hextris.io'},
-  {id:'littlealchemy',title:'Little Alchemy 2',      cat:'puzzle',     emoji:'⚗️', badge:'Trending', url:'https://littlealchemy2.com'},
-  {id:'pokedle',      title:'Pokedle',               cat:'puzzle',     emoji:'🔴',                   url:'https://pokedle.net'},
-  {id:'nerdle',       title:'Nerdle',                cat:'puzzle',     emoji:'🔢',                   url:'https://nerdlegame.com'},
+  {id:'slope',         title:'Slope',                cat:'arcade',  emoji:'🎿', badge:'Hot',     type:'iframe', url:'https://slope-game.github.io/'},
+  {id:'cookieclicker', title:'Cookie Clicker',       cat:'arcade',  emoji:'🍪',                  type:'iframe', url:'https://orteil.dashnet.org/cookieclicker/'},
+  {id:'hextris',       title:'Hextris',              cat:'arcade',  emoji:'🔶',                  type:'iframe', url:'https://hextris.io'},
+  {id:'2048game',      title:'2048',                 cat:'arcade',  emoji:'🔢', badge:'Classic', type:'iframe', url:'https://play2048.co'},
+  {id:'spacecompany',  title:'Space Company',        cat:'arcade',  emoji:'🚀',                  type:'iframe', url:'https://sparticle999.github.io/SpaceCompany/'},
+  {id:'skribbl',       title:'Skribbl.io',           cat:'arcade',  emoji:'✏️',                  type:'iframe', url:'https://skribbl.io'},
+  {id:'garticphone',   title:'Gartic Phone',         cat:'arcade',  emoji:'📞',                  type:'iframe', url:'https://garticphone.com'},
+  {id:'townscaper',    title:'Townscaper',           cat:'arcade',  emoji:'🏘️',                  type:'iframe', url:'https://oskarstalberg.com/Townscaper/'},
+  {id:'sandspiel',     title:'Sand Game',            cat:'arcade',  emoji:'⏳',                  type:'iframe', url:'https://sandspiel.club'},
+  {id:'hexgl',         title:'HexGL Racing',         cat:'arcade',  emoji:'🔷', badge:'3D',      type:'iframe', url:'https://hexgl.bkcore.com/play/'},
+  {id:'chromedino',    title:'Chrome Dino',          cat:'arcade',  emoji:'🦖',                  type:'iframe', url:'https://chromedino.com'},
+  {id:'littlealchemy', title:'Little Alchemy 2',     cat:'arcade',  emoji:'⚗️', badge:'Trending',type:'iframe', url:'https://littlealchemy2.com'},
+  {id:'clickerhero',   title:'Clicker Heroes',       cat:'arcade',  emoji:'⚔️',                  type:'iframe', url:'https://www.clickerheroes.com'},
+  {id:'minesweeper',   title:'Minesweeper',          cat:'arcade',  emoji:'💣',                  type:'iframe', url:'https://minesweeper.online/'},
+  {id:'jstris',        title:'Jstris (Tetris)',       cat:'arcade',  emoji:'🧱',                  type:'iframe', url:'https://jstris.jezevec10.com'},
+  {id:'geoguessr',     title:'GeoGuessr',            cat:'arcade',  emoji:'🌍',                  type:'iframe', url:'https://www.geoguessr.com'},
 
   // ── STRATEGY ──
-  {id:'chess',        title:'Chess vs Computer',     cat:'strategy',   emoji:'♟️',                   url:'https://www.chess.com/play/computer'},
-  {id:'lichess',      title:'Lichess',               cat:'strategy',   emoji:'♟️',                   url:'https://lichess.org'},
-  {id:'bloons',       title:'Bloons TD 5',           cat:'strategy',   emoji:'🎈',                   url:'https://www.coolmathgames.com/0-bloons-tower-defense-5'},
-  {id:'jacksmith',    title:'Jacksmith',             cat:'strategy',   emoji:'⚒️',                   url:'https://www.coolmathgames.com/0-jacksmith'},
-  {id:'swords',       title:'Swords & Souls',        cat:'strategy',   emoji:'⚔️',                   url:'https://www.coolmathgames.com/0-swords-and-souls'},
-  {id:'shapez',       title:'Shapez.io',             cat:'strategy',   emoji:'🏭', badge:'New',      url:'https://shapez.io'},
-  {id:'geoguessr',    title:'GeoGuessr',             cat:'strategy',   emoji:'🌍',                   url:'https://www.geoguessr.com'},
-  {id:'cellmachine',  title:'Cell Machine',          cat:'strategy',   emoji:'🧬',                   url:'https://cellmachine.net'},
+  {id:'lichess',       title:'Lichess Chess',        cat:'strategy',emoji:'♟️',                  type:'iframe', url:'https://lichess.org/'},
+  {id:'shapez',        title:'Shapez.io',            cat:'strategy',emoji:'🏭', badge:'New',     type:'iframe', url:'https://shapez.io'},
+  {id:'cellmachine',   title:'Cell Machine',         cat:'strategy',emoji:'🧬',                  type:'iframe', url:'https://cellmachine.net'},
+  {id:'hexanaut',      title:'Hexanaut.io',          cat:'strategy',emoji:'🔷',                  type:'iframe', url:'https://hexanaut.io'},
 
   // ── SPORTS ──
-  {id:'retrobowl',    title:'Retro Bowl',            cat:'sports',     emoji:'🏈', badge:'Popular',  url:'https://retrobowl.me'},
-  {id:'basketrandom', title:'Basket Random',         cat:'sports',     emoji:'🏀', badge:'🔥',       url:'https://www.crazygames.com/game/basket-random'},
-  {id:'soccerrandom', title:'Soccer Random',         cat:'sports',     emoji:'⚽', badge:'Hot',      url:'https://www.crazygames.com/game/soccer-random'},
-  {id:'volleyrandom', title:'Volleyball Random',     cat:'sports',     emoji:'🏐',                   url:'https://www.crazygames.com/game/volleyball-random'},
-  {id:'tennisr',      title:'Tennis Random',         cat:'sports',     emoji:'🎾',                   url:'https://www.crazygames.com/game/tennis-random'},
-  {id:'footballrandom',title:'Football Random',      cat:'sports',     emoji:'🏈',                   url:'https://www.crazygames.com/game/football-random'},
-  {id:'baseballr',    title:'Baseball Random',       cat:'sports',     emoji:'⚾',                   url:'https://www.crazygames.com/game/baseball-random'},
-  {id:'boxingr',      title:'Boxing Random',         cat:'sports',     emoji:'🥊',                   url:'https://www.crazygames.com/game/boxing-random'},
-  {id:'icehockeyr',   title:'Ice Hockey Random',     cat:'sports',     emoji:'🏒',                   url:'https://www.crazygames.com/game/ice-hockey-random'},
-  {id:'ragdollarchers',title:'Ragdoll Archers',      cat:'sports',     emoji:'🏹',                   url:'https://www.crazygames.com/game/ragdoll-archers'},
-  {id:'motox3m',      title:'Moto X3M',              cat:'sports',     emoji:'🏍️', badge:'Popular',  url:'https://www.crazygames.com/game/moto-x3m'},
-  {id:'motox3mwinter',title:'Moto X3M Winter',       cat:'sports',     emoji:'❄️',                   url:'https://www.crazygames.com/game/moto-x3m-winter'},
-  {id:'motox3mpool',  title:'Moto X3M Pool Party',   cat:'sports',     emoji:'🌊',                   url:'https://www.crazygames.com/game/moto-x3m-pool-party'},
-  {id:'motox3mspooky',title:'Moto X3M Spooky Land',  cat:'sports',     emoji:'👻',                   url:'https://www.crazygames.com/game/moto-x3m-spooky-land'},
-  {id:'drifthunters', title:'Drift Hunters',         cat:'sports',     emoji:'🚗', badge:'Popular',  url:'https://www.crazygames.com/game/drift-hunters'},
-  {id:'driftboss',    title:'Drift Boss',            cat:'sports',     emoji:'🏎️',                   url:'https://www.coolmathgames.com/0-drift-boss'},
-  {id:'drivemad',     title:'Drive Mad',             cat:'sports',     emoji:'🚙',                   url:'https://www.coolmathgames.com/0-drive-mad'},
-  {id:'dirtbike',     title:'Dirt Bike',             cat:'sports',     emoji:'🏍️',                   url:'https://www.coolmathgames.com/0-dirt-bike'},
-  {id:'hexgl',        title:'HexGL Racing',          cat:'sports',     emoji:'🔷', badge:'3D',       url:'https://hexgl.bkcore.com/play/'},
-  {id:'8ballpool',    title:'8 Ball Pool',           cat:'sports',     emoji:'🎱', badge:'Classic',  url:'https://www.crazygames.com/game/8-ball-pool-with-friends'},
-  {id:'curveball',    title:'Curve Ball 3D',         cat:'sports',     emoji:'🏓',                   url:'https://www.crazygames.com/game/curve-ball-3d'},
-  {id:'tabletennis',  title:'Table Tennis',          cat:'sports',     emoji:'🏓',                   url:'https://www.crazygames.com/game/table-tennis-world-tour'},
-  {id:'basketbros',   title:'BasketBros',            cat:'sports',     emoji:'🏀',                   url:'https://basketbros.io'},
-  {id:'basketstars',  title:'Basketball Stars',      cat:'sports',     emoji:'⭐',                   url:'https://www.crazygames.com/game/basketball-stars'},
-  {id:'penalty',      title:'Penalty Shooters 2',    cat:'sports',     emoji:'⚽',                   url:'https://www.crazygames.com/game/penalty-shooters-2'},
-  {id:'soccerphysics',title:'Soccer Physics',        cat:'sports',     emoji:'⚽',                   url:'https://www.coolmathgames.com/0-soccer-physics'},
-  {id:'sprinter',     title:'Sprinter',              cat:'sports',     emoji:'🏃',                   url:'https://www.coolmathgames.com/0-sprinter'},
-  {id:'2phockey',     title:'2-Player Hockey',       cat:'sports',     emoji:'🥅',                   url:'https://www.coolmathgames.com/0-2-player-hockey'},
+  {id:'retrobowl',     title:'Retro Bowl',           cat:'sports',  emoji:'🏈', badge:'Popular', type:'iframe', url:'https://retrobowl.me'},
+  {id:'basketrandom',  title:'Basket Random',        cat:'sports',  emoji:'🏀', badge:'🔥',      type:'iframe', url:'https://www.crazygames.com/game/basket-random'},
+  {id:'soccerrandom',  title:'Soccer Random',        cat:'sports',  emoji:'⚽', badge:'Hot',     type:'iframe', url:'https://www.crazygames.com/game/soccer-random'},
+  {id:'volleyrandom',  title:'Volleyball Random',    cat:'sports',  emoji:'🏐',                  type:'iframe', url:'https://www.crazygames.com/game/volleyball-random'},
+  {id:'footballrandom',title:'Football Random',      cat:'sports',  emoji:'🏈',                  type:'iframe', url:'https://www.crazygames.com/game/football-random'},
+  {id:'baseballr',     title:'Baseball Random',      cat:'sports',  emoji:'⚾',                  type:'iframe', url:'https://www.crazygames.com/game/baseball-random'},
+  {id:'boxingr',       title:'Boxing Random',        cat:'sports',  emoji:'🥊',                  type:'iframe', url:'https://www.crazygames.com/game/boxing-random'},
+  {id:'icehockeyr',    title:'Ice Hockey Random',    cat:'sports',  emoji:'🏒',                  type:'iframe', url:'https://www.crazygames.com/game/ice-hockey-random'},
+  {id:'ragdollarchers',title:'Ragdoll Archers',      cat:'sports',  emoji:'🏹',                  type:'iframe', url:'https://www.crazygames.com/game/ragdoll-archers'},
+  {id:'motox3m',       title:'Moto X3M',             cat:'sports',  emoji:'🏍️', badge:'Popular', type:'iframe', url:'https://www.crazygames.com/game/moto-x3m'},
+  {id:'motox3mwinter', title:'Moto X3M Winter',      cat:'sports',  emoji:'❄️',                  type:'iframe', url:'https://www.crazygames.com/game/moto-x3m-winter'},
+  {id:'motox3mpool',   title:'Moto X3M Pool Party',  cat:'sports',  emoji:'🌊',                  type:'iframe', url:'https://www.crazygames.com/game/moto-x3m-pool-party'},
+  {id:'motox3mspooky', title:'Moto X3M Spooky',      cat:'sports',  emoji:'👻',                  type:'iframe', url:'https://www.crazygames.com/game/moto-x3m-spooky-land'},
+  {id:'drifthunters',  title:'Drift Hunters',        cat:'sports',  emoji:'🚗', badge:'Popular', type:'iframe', url:'https://www.crazygames.com/game/drift-hunters'},
+  {id:'basketbros',    title:'BasketBros',           cat:'sports',  emoji:'🏀',                  type:'iframe', url:'https://basketbros.io'},
+  {id:'basketstars',   title:'Basketball Stars',     cat:'sports',  emoji:'⭐',                  type:'iframe', url:'https://www.crazygames.com/game/basketball-stars'},
+  {id:'penalty',       title:'Penalty Shooters 2',   cat:'sports',  emoji:'⚽',                  type:'iframe', url:'https://www.crazygames.com/game/penalty-shooters-2'},
+  {id:'curveball',     title:'Curve Ball 3D',        cat:'sports',  emoji:'🏓',                  type:'iframe', url:'https://www.crazygames.com/game/curve-ball-3d'},
+  {id:'8ballpool',     title:'8 Ball Pool',          cat:'sports',  emoji:'🎱', badge:'Classic', type:'iframe', url:'https://www.crazygames.com/game/8-ball-pool-with-friends'},
+  {id:'tennisr',       title:'Tennis Random',        cat:'sports',  emoji:'🎾',                  type:'iframe', url:'https://www.crazygames.com/game/tennis-random'},
 
-  // ── CLASSIC ──
-  {id:'tetris',       title:'Jstris (Tetris)',        cat:'classic',    emoji:'🧱',                   url:'https://jstris.jezevec10.com'},
-  {id:'snake',        title:'Google Snake',          cat:'classic',    emoji:'🐍',                   url:'https://snake.googlemaps.com/'},
-  {id:'minesweeper',  title:'Minesweeper',           cat:'classic',    emoji:'💣',                   url:'https://minesweeper.online/'},
-  {id:'checkers',     title:'Checkers',              cat:'classic',    emoji:'🔴',                   url:'https://www.crazygames.com/game/checkers'},
-  {id:'trex',         title:'Chrome Dino',           cat:'classic',    emoji:'🦖',                   url:'https://chromedino.com'},
-  {id:'pinball',      title:'2-Player Pinball',      cat:'classic',    emoji:'🎰',                   url:'https://www.coolmathgames.com/0-two-player-pinball'},
-
-  // ── SIMULATION ──
-  {id:'townscaper',   title:'Townscaper',            cat:'simulation', emoji:'🏘️',                   url:'https://oskarstalberg.com/Townscaper/'},
-  {id:'civclicker',   title:'Civ Clicker',           cat:'simulation', emoji:'🏛️',                   url:'http://civclicker.sourceforge.net/civclicker/civclicker.html'},
-  {id:'sandgame',     title:'Sand Game',             cat:'simulation', emoji:'⏳',                   url:'https://sandspiel.club'},
-  {id:'blobio',       title:'Blob Opera',            cat:'simulation', emoji:'🎤',                   url:'https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw'},
+  // ── CLASSIC (built-in JS — always work, zero external deps) ──
+  {id:'pong',          title:'Pong',                 cat:'classic', emoji:'🏓', badge:'Built-in', type:'js', game:'pong'},
+  {id:'snake2',        title:'Snake',                cat:'classic', emoji:'🐍', badge:'Built-in', type:'js', game:'snake'},
+  {id:'brickbreak',    title:'Brick Breaker',        cat:'classic', emoji:'🧱', badge:'Built-in', type:'js', game:'brickbreak'},
+  {id:'flappy',        title:'Flappy Bird',          cat:'classic', emoji:'🐦', badge:'Built-in', type:'js', game:'flappy'},
+  {id:'tictactoe',     title:'Tic-Tac-Toe',         cat:'classic', emoji:'✖️', badge:'Built-in', type:'js', game:'tictactoe'},
+  {id:'memory',        title:'Memory Match',         cat:'classic', emoji:'🃏', badge:'Built-in', type:'js', game:'memory'},
+  {id:'dino',          title:'Dino Run',             cat:'classic', emoji:'🦖', badge:'Built-in', type:'js', game:'dino'},
+  {id:'asteroids',     title:'Asteroids',            cat:'classic', emoji:'🌑', badge:'Built-in', type:'js', game:'asteroids'},
+  {id:'reaction',      title:'Reaction Time',        cat:'classic', emoji:'⚡', badge:'Built-in', type:'js', game:'reaction'},
 ];
 
-// ── OVERLAY ELEMENTS ──
+// ─────────────────────────────────────────────────────────────
+// BUILT-IN JS GAMES  (no external requests — always work)
+// ─────────────────────────────────────────────────────────────
+function makeGame(id) {
+  var W = '100%', bg = '#05070f';
+  if (id === 'pong') return '<style>body{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;font-family:monospace;color:#fff;}canvas{border:1px solid #1e2d4a;}</style>' +
+    '<div style="margin-bottom:8px;font-size:13px;color:#64748b">W/S &nbsp;•&nbsp; ↑/↓ &nbsp;•&nbsp; First to 7 wins</div>' +
+    '<canvas id="c" width="700" height="460"></canvas>' +
+    '<script>var c=document.getElementById("c"),ctx=c.getContext("2d"),W=700,H=460,PW=10,PH=80,R=8,SPD=5;' +
+    'var p1={y:H/2-40,s:0},p2={y:H/2-40,s:0},bx=W/2,by=H/2,vx=SPD,vy=3,keys={};' +
+    'document.addEventListener("keydown",function(e){keys[e.key]=1;if(["ArrowUp","ArrowDown"," "].includes(e.key))e.preventDefault();});' +
+    'document.addEventListener("keyup",function(e){keys[e.key]=0;});' +
+    'function reset(){bx=W/2;by=H/2;vx=SPD*(vx>0?-1:1);vy=(Math.random()-.5)*6;}' +
+    'function loop(){' +
+    'if(keys["w"]||keys["W"])p1.y=Math.max(0,p1.y-6);if(keys["s"]||keys["S"])p1.y=Math.min(H-PH,p1.y+6);' +
+    'if(keys["ArrowUp"])p2.y=Math.max(0,p2.y-6);if(keys["ArrowDown"])p2.y=Math.min(H-PH,p2.y+6);' +
+    'bx+=vx;by+=vy;if(by-R<0||by+R>H)vy=-vy;' +
+    'if(bx-R<12+PW&&by>p1.y&&by<p1.y+PH&&vx<0){vx=Math.abs(vx)+.2;vy+=(by-p1.y-PH/2)*.08;}' +
+    'if(bx+R>W-12-PW&&by>p2.y&&by<p2.y+PH&&vx>0){vx=-(Math.abs(vx)+.2);vy+=(by-p2.y-PH/2)*.08;}' +
+    'if(bx<0){p2.s++;reset();}if(bx>W){p1.s++;reset();}' +
+    'ctx.fillStyle="#000";ctx.fillRect(0,0,W,H);' +
+    'ctx.setLineDash([6,6]);ctx.strokeStyle="#1e2d4a";ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);' +
+    'ctx.fillStyle="#00e5ff";ctx.fillRect(12,p1.y,PW,PH);ctx.fillStyle="#ff3cac";ctx.fillRect(W-12-PW,p2.y,PW,PH);' +
+    'ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(bx,by,R,0,Math.PI*2);ctx.fill();' +
+    'ctx.font="bold 40px monospace";ctx.textAlign="center";ctx.fillText(p1.s+" : "+p2.s,W/2,44);' +
+    'requestAnimationFrame(loop);}loop();<\/script>';
+
+  if (id === 'snake') return '<style>body{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;}</style>' +
+    '<div style="color:#64748b;font-family:monospace;font-size:13px;margin-bottom:8px">Arrow Keys / WASD — Space to restart</div>' +
+    '<canvas id="c" width="480" height="480" style="border:1px solid #1e2d4a"></canvas>' +
+    '<script>var c=document.getElementById("c"),ctx=c.getContext("2d"),SZ=20,COLS=24,ROWS=24;' +
+    'var snake,dir,nd,food,sc,dead;' +
+    'function init(){snake=[{x:12,y:12},{x:11,y:12},{x:10,y:12}];dir={x:1,y:0};nd={x:1,y:0};sc=0;dead=false;place();}' +
+    'function place(){food={x:Math.floor(Math.random()*COLS),y:Math.floor(Math.random()*ROWS)};}' +
+    'function step(){if(dead)return;dir=nd;var h={x:(snake[0].x+dir.x+COLS)%COLS,y:(snake[0].y+dir.y+ROWS)%ROWS};' +
+    'if(snake.some(function(s){return s.x===h.x&&s.y===h.y;})){dead=true;return;}' +
+    'snake.unshift(h);if(h.x===food.x&&h.y===food.y){sc++;place();}else snake.pop();}' +
+    'function draw(){ctx.fillStyle="#000";ctx.fillRect(0,0,480,480);' +
+    'snake.forEach(function(s,i){var t=1-i/snake.length;ctx.fillStyle="hsl("+(150+i*2)+",90%,"+(35+t*30)+"%)";ctx.fillRect(s.x*SZ+1,s.y*SZ+1,SZ-2,SZ-2);});' +
+    'ctx.fillStyle="#ff3cac";ctx.beginPath();ctx.arc(food.x*SZ+SZ/2,food.y*SZ+SZ/2,SZ/2-2,0,Math.PI*2);ctx.fill();' +
+    'ctx.fillStyle="#00e5ff";ctx.font="bold 15px monospace";ctx.textAlign="left";ctx.fillText("Score: "+sc,6,18);' +
+    'if(dead){ctx.fillStyle="rgba(0,0,0,.65)";ctx.fillRect(0,0,480,480);ctx.fillStyle="#ff3cac";ctx.font="bold 38px monospace";ctx.textAlign="center";ctx.fillText("GAME OVER",240,200);ctx.fillStyle="#00e5ff";ctx.font="18px monospace";ctx.fillText("Score: "+sc,240,246);ctx.fillStyle="#64748b";ctx.font="14px monospace";ctx.fillText("Space to restart",240,278);}}' +
+    'document.addEventListener("keydown",function(e){var m={ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0},w:{x:0,y:-1},s:{x:0,y:1},a:{x:-1,y:0},d:{x:1,y:0}};' +
+    'if(e.key===" "&&dead)init();if(m[e.key]&&!(m[e.key].x===-dir.x&&m[e.key].y===-dir.y))nd=m[e.key];' +
+    'if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key))e.preventDefault();});' +
+    'init();setInterval(function(){step();draw();},110);<\/script>';
+
+  if (id === 'flappy') return '<style>body{background:#1a1a2e;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;}</style>' +
+    '<canvas id="c" width="380" height="540" style="border:1px solid #1e2d4a"></canvas>' +
+    '<script>var c=document.getElementById("c"),ctx=c.getContext("2d"),W=380,H=540,G=.4,JUMP=-8,GAP=145,PW=50,SP=2.8;' +
+    'var bird,pipes,sc,best,state;best=0;' +
+    'function init(){bird={x:90,y:H/2,v:0,r:15};pipes=[];sc=0;state="idle";}' +
+    'function addPipe(){pipes.push({x:W,top:55+Math.random()*(H-GAP-110),ok:false});}' +
+    'function jump(){if(state==="idle")state="run";else if(state==="dead")init();else bird.v=JUMP;}' +
+    'c.addEventListener("click",jump);document.addEventListener("keydown",function(e){if(e.code==="Space"||e.code==="ArrowUp"){jump();e.preventDefault();}});' +
+    'var tick=0;function update(){if(state!=="run")return;' +
+    'bird.v+=G;bird.y+=bird.v;if(++tick%72===0)addPipe();' +
+    'pipes.forEach(function(p){p.x-=SP;});pipes=pipes.filter(function(p){return p.x>-PW;});' +
+    'for(var i=0;i<pipes.length;i++){var p=pipes[i],r=bird.r-2;' +
+    'if(bird.x+r>p.x&&bird.x-r<p.x+PW&&(bird.y-r<p.top||bird.y+r>p.top+GAP)){state="dead";best=Math.max(best,sc);return;}' +
+    'if(!p.ok&&p.x+PW<bird.x){sc++;p.ok=true;}}' +
+    'if(bird.y+bird.r>H||bird.y<0){state="dead";best=Math.max(best,sc);}}' +
+    'function draw(){ctx.fillStyle="#1a1a2e";ctx.fillRect(0,0,W,H);' +
+    'pipes.forEach(function(p){ctx.fillStyle="#2ecc71";ctx.fillRect(p.x,0,PW,p.top);ctx.fillRect(p.x,p.top+GAP,PW,H);ctx.fillStyle="#27ae60";ctx.fillRect(p.x-4,p.top-16,PW+8,16);ctx.fillRect(p.x-4,p.top+GAP,PW+8,16);});' +
+    'ctx.save();ctx.translate(bird.x,bird.y);ctx.rotate(Math.min(Math.max(bird.v*.06,-.5),.8));' +
+    'ctx.fillStyle="#f1c40f";ctx.beginPath();ctx.arc(0,0,bird.r,0,Math.PI*2);ctx.fill();' +
+    'ctx.fillStyle="#e67e22";ctx.beginPath();ctx.ellipse(bird.r,2,7,4,0,0,Math.PI*2);ctx.fill();' +
+    'ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(5,-5,4,0,Math.PI*2);ctx.fill();' +
+    'ctx.fillStyle="#222";ctx.beginPath();ctx.arc(6,-5,2,0,Math.PI*2);ctx.fill();ctx.restore();' +
+    'ctx.fillStyle="#fff";ctx.font="bold 26px monospace";ctx.textAlign="center";ctx.fillText(sc,W/2,40);' +
+    'if(state==="idle"){ctx.fillStyle="rgba(0,0,0,.55)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#00e5ff";ctx.font="bold 30px monospace";ctx.fillText("FLAPPY BIRD",W/2,H/2-24);ctx.fillStyle="#94a3b8";ctx.font="15px monospace";ctx.fillText("Click or Space",W/2,H/2+12);}' +
+    'if(state==="dead"){ctx.fillStyle="rgba(0,0,0,.6)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#ff3cac";ctx.font="bold 34px monospace";ctx.textAlign="center";ctx.fillText("GAME OVER",W/2,H/2-36);ctx.fillStyle="#fff";ctx.font="18px monospace";ctx.fillText("Score: "+sc+"  Best: "+best,W/2,H/2+4);ctx.fillStyle="#64748b";ctx.font="14px monospace";ctx.fillText("Click to restart",W/2,H/2+32);}}' +
+    'init();function loop(){update();draw();requestAnimationFrame(loop);}loop();<\/script>';
+
+  if (id === 'brickbreak') return '<style>body{background:#050510;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;}</style>' +
+    '<div style="color:#64748b;font-family:monospace;font-size:12px;margin-bottom:6px">Mouse or ← → to move &nbsp;|&nbsp; Space to launch</div>' +
+    '<canvas id="c" width="580" height="460" style="border:1px solid #1e2d4a"></canvas>' +
+    '<script>var c=document.getElementById("c"),ctx=c.getContext("2d"),W=580,H=460,PW=88,PH=11,R=8,PY=H-36;' +
+    'var COLS=["#ff3cac","#7b2fff","#00e5ff","#00ff88","#ffd700","#ff6b35"];' +
+    'var px,bx,by,vx,vy,launched,lives,sc,bricks,dead,won;' +
+    'function init(){px=W/2-PW/2;bx=W/2;by=PY-R-1;vx=0;vy=0;launched=false;lives=3;sc=0;dead=false;won=false;' +
+    'bricks=[];for(var r=0;r<6;r++)for(var col=0;col<9;col++)bricks.push({x:8+col*63,y:44+r*24,hp:r<2?2:1,c:COLS[r],alive:true});}' +
+    'c.addEventListener("mousemove",function(e){var rect=c.getBoundingClientRect();px=Math.max(0,Math.min(W-PW,(e.clientX-rect.left)*(W/rect.width)-PW/2));});' +
+    'document.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")px=Math.max(0,px-18);if(e.key==="ArrowRight")px=Math.min(W-PW,px+18);if(e.key===" "){if(!launched&&!dead&&!won){launched=true;vx=3;vy=-5.5;}else if(dead||won)init();}e.preventDefault&&["ArrowLeft","ArrowRight"," "].includes(e.key)&&e.preventDefault();});' +
+    'function update(){if(!launched)return;bx+=vx;by+=vy;if(bx-R<0){bx=R;vx=Math.abs(vx);}if(bx+R>W){bx=W-R;vx=-Math.abs(vx);}if(by-R<0){by=R;vy=Math.abs(vy);}' +
+    'if(by+R>PY&&by-R<PY+PH&&bx>px&&bx<px+PW){vy=-Math.abs(vy);vx+=(bx-(px+PW/2))*.05;}' +
+    'if(by>H){lives--;if(lives<=0){dead=true;}else{bx=px+PW/2;by=PY-R-1;launched=false;vx=0;vy=0;}}' +
+    'bricks.forEach(function(b){if(!b.alive)return;if(bx+R>b.x&&bx-R<b.x+58&&by+R>b.y&&by-R<b.y+20){b.hp--;if(!b.hp)b.alive=false;var ox=Math.min(bx+R-b.x,b.x+58-(bx-R)),oy=Math.min(by+R-b.y,b.y+20-(by-R));if(ox<oy)vx=-vx;else vy=-vy;sc+=10;}});' +
+    'if(bricks.every(function(b){return!b.alive;}))won=true;}' +
+    'function draw(){ctx.fillStyle="#050510";ctx.fillRect(0,0,W,H);' +
+    'bricks.forEach(function(b){if(!b.alive)return;ctx.fillStyle=b.hp>1?"#fff":b.c;ctx.beginPath();if(ctx.roundRect)ctx.roundRect(b.x,b.y,58,20,3);else ctx.rect(b.x,b.y,58,20);ctx.fill();});' +
+    'ctx.fillStyle="#00e5ff";ctx.beginPath();if(ctx.roundRect)ctx.roundRect(px,PY,PW,PH,5);else ctx.rect(px,PY,PW,PH);ctx.fill();' +
+    'ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(bx,by,R,0,Math.PI*2);ctx.fill();' +
+    'ctx.fillStyle="#00e5ff";ctx.font="bold 14px monospace";ctx.textAlign="left";ctx.fillText("Score: "+sc,6,20);' +
+    'ctx.fillStyle="#ff3cac";ctx.fillText("Lives: "+"♥ ".repeat(lives).trim(),6,38);' +
+    'if(!launched&&!dead&&!won){ctx.fillStyle="#4a5568";ctx.font="13px monospace";ctx.textAlign="center";ctx.fillText("Space to launch",W/2,H-6);}' +
+    'if(dead){ctx.fillStyle="rgba(0,0,0,.72)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#ff3cac";ctx.font="bold 40px monospace";ctx.textAlign="center";ctx.fillText("GAME OVER",W/2,H/2-16);ctx.fillStyle="#64748b";ctx.font="15px monospace";ctx.fillText("Space to restart",W/2,H/2+22);}' +
+    'if(won){ctx.fillStyle="rgba(0,0,0,.72)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#00ff88";ctx.font="bold 40px monospace";ctx.textAlign="center";ctx.fillText("YOU WIN!",W/2,H/2-16);ctx.fillStyle="#64748b";ctx.font="15px monospace";ctx.fillText("Space to restart",W/2,H/2+22);}}' +
+    'init();function loop(){update();draw();requestAnimationFrame(loop);}loop();<\/script>';
+
+  if (id === 'tictactoe') return '<style>body{background:#05070f;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;font-family:Orbitron,monospace;color:#e2e8f0;}</style>' +
+    '<div id="msg" style="font-size:1.2rem;color:#00e5ff;min-height:2rem;margin-bottom:20px;font-weight:700"></div>' +
+    '<div id="board" style="display:grid;grid-template-columns:repeat(3,100px);gap:8px"></div>' +
+    '<button onclick="restart()" style="margin-top:24px;background:linear-gradient(90deg,#7b2fff,#00e5ff);border:none;color:#fff;font-family:inherit;font-size:.9rem;padding:10px 32px;border-radius:999px;cursor:pointer;letter-spacing:2px">RESTART</button>' +
+    '<script>var board,turn,over;var msg=document.getElementById("msg"),grid=document.getElementById("board");' +
+    'var WIN=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];' +
+    'function restart(){board=Array(9).fill("");turn="X";over=false;render();msg.textContent="Player X\'s turn";}' +
+    'function click(i){if(board[i]||over)return;board[i]=turn;var w=WIN.find(function(c){return c.every(function(x){return board[x]===turn;});});' +
+    'if(w){over=true;msg.innerHTML="<span style=\'color:"+(turn==="X"?"#ff3cac":"#00e5ff")+"\'>Player "+turn+" WINS! 🎉</span>";render(w);return;}' +
+    'if(board.every(Boolean)){over=true;msg.textContent="Draw!";render();return;}' +
+    'turn=turn==="X"?"O":"X";msg.textContent="Player "+turn+"\'s turn";render();}' +
+    'function render(w){w=w||[];grid.innerHTML="";board.forEach(function(v,i){var b=document.createElement("div");' +
+    'b.style.cssText="width:100px;height:100px;background:"+(w.includes(i)?"rgba(0,229,255,.15)":"#0d1220")+";border:1px solid #1e2d4a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;cursor:pointer;";' +
+    'b.innerHTML=v==="X"?"<span style=\'color:#ff3cac\'>✕</span>":v==="O"?"<span style=\'color:#00e5ff\'>○</span>":"";' +
+    'b.onclick=function(){click(i);};grid.appendChild(b);});}restart();<\/script>';
+
+  if (id === 'memory') return '<style>body{background:#05070f;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0;font-family:"Exo 2",sans-serif;padding:20px;}</style>' +
+    '<div style="display:flex;gap:28px;margin-bottom:16px;color:#e2e8f0"><span>Moves: <b id="mv" style="color:#00e5ff">0</b></span><span>Matches: <b id="mt" style="color:#ff3cac">0</b>/8</span></div>' +
+    '<div id="g" style="display:grid;grid-template-columns:repeat(4,80px);gap:9px"></div>' +
+    '<button onclick="restart()" style="margin-top:20px;background:linear-gradient(90deg,#7b2fff,#00e5ff);border:none;color:#fff;font-family:Orbitron,monospace;font-size:.78rem;padding:9px 26px;border-radius:999px;cursor:pointer;letter-spacing:2px">SHUFFLE</button>' +
+    '<script>var EM=["🎮","⚡","🔥","🌀","💎","🏆","🎯","🚀"],cards,flipped,matched,moves;' +
+    'function restart(){var d=[].concat(EM,EM).sort(function(){return Math.random()-.5;});cards=d.map(function(e,i){return{id:i,e:e,f:false,m:false};});flipped=[];matched=0;moves=0;render();}' +
+    'function click(i){var c=cards[i];if(c.m||c.f||flipped.length===2)return;c.f=true;flipped.push(i);render();' +
+    'if(flipped.length===2){moves++;document.getElementById("mv").textContent=moves;var a=flipped[0],b=flipped[1];' +
+    'if(cards[a].e===cards[b].e){cards[a].m=cards[b].m=true;matched++;document.getElementById("mt").textContent=matched;flipped=[];render();}' +
+    'else setTimeout(function(){cards[a].f=cards[b].f=false;flipped=[];render();},800);}}' +
+    'function render(){var g=document.getElementById("g");g.innerHTML="";cards.forEach(function(c,i){var d=document.createElement("div");var show=c.f||c.m;' +
+    'd.style.cssText="width:80px;height:80px;background:"+(c.m?"rgba(0,229,255,.13)":show?"#1a2438":"#0d1220")+";border:1px solid "+(c.m?"#00e5ff":show?"#7b2fff":"#1e2d4a")+";border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.9rem;cursor:pointer;transition:all .15s;";' +
+    'd.textContent=show?c.e:"❓";d.onclick=function(){click(i);};g.appendChild(d);});}restart();<\/script>';
+
+  if (id === 'dino') return '<style>body{background:#e8e8e8;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;}</style>' +
+    '<canvas id="c" width="680" height="190" style="border:1px solid #ccc;max-width:100%"></canvas>' +
+    '<div style="font-family:monospace;font-size:12px;color:#666;margin-top:6px">Space / Click to jump — double jump available</div>' +
+    '<script>var c=document.getElementById("c"),ctx=c.getContext("2d"),W=680,H=190,GY=148,G=.65,J=-13,SP0=5;' +
+    'var dino,obs,sc,hi,spd,fr,st;hi=0;' +
+    'function init(){dino={x:72,y:GY,vy:0,jumps:0,h:42,w:32};obs=[];sc=0;spd=SP0;fr=0;st="idle";}' +
+    'function jump(){if(st==="idle")st="run";else if(st==="dead"){init();st="run";}else if(dino.jumps<2){dino.vy=J-(dino.jumps?2:0);dino.jumps++;}}' +
+    'c.addEventListener("click",jump);document.addEventListener("keydown",function(e){if(e.code==="Space"||e.code==="ArrowUp"){jump();e.preventDefault();}});' +
+    'function update(){if(st!=="run")return;fr++;sc++;spd=SP0+sc/600;' +
+    'dino.vy+=G;dino.y+=dino.vy;if(dino.y>=GY){dino.y=GY;dino.jumps=0;dino.vy=0;}' +
+    'if(fr%Math.max(45,82-sc/180)===0)obs.push({x:W,w:18+Math.random()*20,h:28+Math.random()*28});' +
+    'obs.forEach(function(o){o.x-=spd;});obs=obs.filter(function(o){return o.x>-40;});' +
+    'for(var i=0;i<obs.length;i++){var o=obs[i];if(dino.x+dino.w-5>o.x+4&&dino.x+5<o.x+o.w-4&&dino.y+dino.h-3>GY+42-o.h+3){st="dead";hi=Math.max(hi,Math.floor(sc/6));return;}}}' +
+    'function draw(){ctx.fillStyle="#e8e8e8";ctx.fillRect(0,0,W,H);ctx.fillStyle="#555";ctx.fillRect(0,GY+42,W,2);' +
+    'ctx.fillStyle="#333";ctx.fillRect(dino.x,dino.y,dino.w,dino.h);' +
+    'ctx.fillStyle="#e8e8e8";ctx.fillRect(dino.x+16,dino.y+5,9,7);ctx.fillStyle="#333";ctx.fillRect(dino.x+20,dino.y+7,3,3);' +
+    'var lg=fr%20<10?1:0;ctx.fillRect(dino.x+3,dino.y+dino.h,7,lg?9:4);ctx.fillRect(dino.x+17,dino.y+dino.h,7,lg?4:9);' +
+    'obs.forEach(function(o){var oy=GY+42-o.h;ctx.fillStyle="#2d8a00";ctx.fillRect(o.x+o.w/2-4,oy,8,o.h);ctx.fillRect(o.x,oy+8,o.w,7);ctx.fillRect(o.x,oy+8,5,16);ctx.fillRect(o.x+o.w-5,oy+8,5,16);});' +
+    'ctx.fillStyle="#333";ctx.font="bold 14px monospace";ctx.textAlign="right";ctx.fillText("HI "+String(hi).padStart(5,"0")+"  "+String(Math.floor(sc/6)).padStart(5,"0"),W-8,22);' +
+    'if(st==="idle"){ctx.fillStyle="rgba(200,200,200,.8)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#333";ctx.font="bold 20px monospace";ctx.textAlign="center";ctx.fillText("Click or Space to start",W/2,H/2);}' +
+    'if(st==="dead"){ctx.fillStyle="rgba(200,200,200,.75)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#c0392b";ctx.font="bold 24px monospace";ctx.textAlign="center";ctx.fillText("GAME OVER",W/2,H/2-8);ctx.fillStyle="#333";ctx.font="13px monospace";ctx.fillText("Click or Space to restart",W/2,H/2+18);}}' +
+    'init();function loop(){update();draw();requestAnimationFrame(loop);}loop();<\/script>';
+
+  if (id === 'asteroids') return '<style>body{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;}</style>' +
+    '<div style="color:#64748b;font-family:monospace;font-size:12px;margin-bottom:6px">← → Rotate &nbsp;▲ Thrust &nbsp;Space Shoot</div>' +
+    '<canvas id="c" width="620" height="480" style="border:1px solid #1e2d4a"></canvas>' +
+    '<script>var c=document.getElementById("c"),ctx=c.getContext("2d"),W=620,H=480;' +
+    'var ship,asts,bullets,sc,lives,st,keys={};' +
+    'function rnd(a,b){return a+Math.random()*(b-a);}' +
+    'function initGame(){ship={x:W/2,y:H/2,a:-Math.PI/2,vx:0,vy:0,inv:120};' +
+    'asts=[];for(var i=0;i<5;i++)spawnAst(80,rnd(0,W),rnd(0,H/3));' +
+    'bullets=[];sc=0;lives=3;st="run";}' +
+    'function spawnAst(r,x,y){asts.push({x:x,y:y,r:r,vx:rnd(-1.5,1.5),vy:rnd(-1.5,1.5),a:0,va:rnd(-.03,.03),pts:Array.from({length:10},function(){return rnd(.7,1.3);})});}' +
+    'document.addEventListener("keydown",function(e){keys[e.code]=true;e.preventDefault&&["Space","ArrowUp","ArrowLeft","ArrowRight"].includes(e.code)&&e.preventDefault();});' +
+    'document.addEventListener("keyup",function(e){keys[e.code]=false;});' +
+    'function update(){if(st!=="run")return;' +
+    'if(keys["ArrowLeft"])ship.a-=.05;if(keys["ArrowRight"])ship.a+=.05;' +
+    'if(keys["ArrowUp"]){ship.vx+=Math.cos(ship.a)*.2;ship.vy+=Math.sin(ship.a)*.2;}' +
+    'ship.vx*=.98;ship.vy*=.98;ship.x=(ship.x+ship.vx+W)%W;ship.y=(ship.y+ship.vy+H)%H;' +
+    'if(ship.inv>0)ship.inv--;' +
+    'if(keys["Space"]&&!keys["Space"]._used){keys["Space"]._used=true;' +
+    'bullets.push({x:ship.x+Math.cos(ship.a)*16,y:ship.y+Math.sin(ship.a)*16,vx:Math.cos(ship.a)*9+ship.vx,vy:Math.sin(ship.a)*9+ship.vy,life:60});}' +
+    'if(!keys["Space"])keys["Space"]._used=false;' +
+    'bullets.forEach(function(b){b.x=(b.x+b.vx+W)%W;b.y=(b.y+b.vy+H)%H;b.life--;});' +
+    'bullets=bullets.filter(function(b){return b.life>0;});' +
+    'asts.forEach(function(a){a.x=(a.x+a.vx+W)%W;a.y=(a.y+a.vy+H)%H;a.a+=a.va;});' +
+    'for(var i=bullets.length-1;i>=0;i--){for(var j=asts.length-1;j>=0;j--){' +
+    'var b=bullets[i],a=asts[j],dx=b.x-a.x,dy=b.y-a.y;' +
+    'if(Math.sqrt(dx*dx+dy*dy)<a.r){bullets.splice(i,1);' +
+    'sc+=a.r>60?10:a.r>30?20:50;' +
+    'if(a.r>30){spawnAst(a.r*.55,a.x+rnd(-20,20),a.y+rnd(-20,20));spawnAst(a.r*.55,a.x+rnd(-20,20),a.y+rnd(-20,20));}' +
+    'asts.splice(j,1);break;}}}' +
+    'if(ship.inv<=0){for(var k=0;k<asts.length;k++){var a=asts[k],dx=ship.x-a.x,dy=ship.y-a.y;if(Math.sqrt(dx*dx+dy*dy)<a.r-4){lives--;ship.inv=120;if(lives<=0){st="dead";}}}}' +
+    'if(asts.length===0){for(var i=0;i<6;i++)spawnAst(80,rnd(0,W),rnd(0,H/3));}}' +
+    'function drawAst(a){ctx.save();ctx.translate(a.x,a.y);ctx.rotate(a.a);ctx.beginPath();' +
+    'a.pts.forEach(function(r,i){var ang=i/a.pts.length*Math.PI*2;i===0?ctx.moveTo(Math.cos(ang)*a.r*r,Math.sin(ang)*a.r*r):ctx.lineTo(Math.cos(ang)*a.r*r,Math.sin(ang)*a.r*r);});' +
+    'ctx.closePath();ctx.strokeStyle="#8892b0";ctx.lineWidth=1.5;ctx.stroke();ctx.restore();}' +
+    'function draw(){ctx.fillStyle="#000";ctx.fillRect(0,0,W,H);' +
+    'asts.forEach(drawAst);' +
+    'bullets.forEach(function(b){ctx.fillStyle="#00e5ff";ctx.beginPath();ctx.arc(b.x,b.y,2.5,0,Math.PI*2);ctx.fill();});' +
+    'if(ship.inv%8<5){ctx.save();ctx.translate(ship.x,ship.y);ctx.rotate(ship.a);ctx.beginPath();ctx.moveTo(16,0);ctx.lineTo(-10,10);ctx.lineTo(-5,0);ctx.lineTo(-10,-10);ctx.closePath();ctx.strokeStyle="#00e5ff";ctx.lineWidth=1.8;ctx.stroke();' +
+    'if(keys["ArrowUp"]){ctx.beginPath();ctx.moveTo(-5,0);ctx.lineTo(-14+(Math.random()*6-3),Math.random()*8-4);ctx.strokeStyle="#ff6b35";ctx.lineWidth=2;ctx.stroke();}ctx.restore();}' +
+    'ctx.fillStyle="#00e5ff";ctx.font="bold 15px monospace";ctx.textAlign="left";ctx.fillText("Score: "+sc,8,22);' +
+    'ctx.fillStyle="#ff3cac";ctx.fillText("Lives: "+"♥ ".repeat(lives).trim(),8,42);' +
+    'if(st==="dead"){ctx.fillStyle="rgba(0,0,0,.7)";ctx.fillRect(0,0,W,H);ctx.fillStyle="#ff3cac";ctx.font="bold 38px monospace";ctx.textAlign="center";ctx.fillText("GAME OVER",W/2,H/2-20);ctx.fillStyle="#00e5ff";ctx.font="18px monospace";ctx.fillText("Score: "+sc,W/2,H/2+14);ctx.fillStyle="#64748b";ctx.font="14px monospace";ctx.fillText("Refresh to restart",W/2,H/2+42);}}' +
+    'initGame();function loop(){update();draw();requestAnimationFrame(loop);}loop();<\/script>';
+
+  if (id === 'reaction') return '<style>body{background:#05070f;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0;font-family:Orbitron,monospace;color:#e2e8f0;text-align:center;padding:24px;}</style>' +
+    '<h2 style="color:#00e5ff;margin-bottom:8px;font-size:1.4rem">REACTION TIME</h2>' +
+    '<p style="color:#64748b;font-size:.82rem;margin-bottom:26px">Click / tap when the box turns GREEN</p>' +
+    '<div id="box" style="width:300px;height:240px;border-radius:18px;background:#0d1220;border:2px solid #1e2d4a;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:#64748b;transition:background .1s" onclick="handleClick()">Click to start</div>' +
+    '<div id="hist" style="color:#94a3b8;font-size:.8rem;margin-top:18px;min-height:50px"></div>' +
+    '<script>var st="idle",t0,timer,res=[];' +
+    'function handleClick(){if(st==="idle"||st==="result")start();else if(st==="wait"){early();}else if(st==="go"){register();}}' +
+    'function start(){clearTimeout(timer);st="wait";setBox("#0d1220","#1e2d4a","Get ready...");timer=setTimeout(go,1500+Math.random()*3000);}' +
+    'function go(){st="go";t0=Date.now();setBox("#00c851","#00c851","<span style=\'color:#000;font-size:1.3rem;font-weight:900\'>CLICK!</span>");}' +
+    'function early(){clearTimeout(timer);st="result";setBox("#b91c1c","#b91c1c","Too early!<br><span style=\'font-size:.75rem;color:#fca5a5\'>Click to retry</span>");}' +
+    'function register(){var ms=Date.now()-t0;res.push(ms);if(res.length>6)res.shift();st="result";var avg=Math.round(res.reduce(function(a,b){return a+b;},0)/res.length);' +
+    'setBox("#05070f","#00e5ff","<span style=\'color:#00e5ff;font-size:1.5rem\'>"+ms+"ms</span>");' +
+    'document.getElementById("hist").innerHTML="Last: "+res.join(" | ")+"ms<br>Avg: "+avg+"ms<br><span style=\'color:#7b2fff;font-size:.7rem\'>Click to try again</span>";}' +
+    'function setBox(bg,border,html){var b=document.getElementById("box");b.style.background=bg;b.style.borderColor=border;b.innerHTML=html;}<\/script>';
+
+  return '<div style="color:#fff;display:flex;align-items:center;justify-content:center;height:100%;font-family:monospace">Game not found</div>';
+}
+
+// ─────────────────────────────────────────────────────────────
+// OVERLAY LOGIC
+// ─────────────────────────────────────────────────────────────
 var overlay   = document.getElementById('gameOverlay');
 var frameEl   = document.getElementById('gameFrame');
 var titleEl   = document.getElementById('overlayTitle');
-var blockedEl = document.getElementById('blockedMsg');
-var blockedLk = document.getElementById('blockedLink');
-var currentUrl = '';
+var currentGame = null;
 
 function openGame(game) {
-  currentUrl = game.url;
+  currentGame = game;
   titleEl.textContent = game.title;
-  blockedEl.style.display = 'none';
-  frameEl.style.display = 'block';
-  frameEl.src = game.url;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  // After 5s check if frame loaded (catches X-Frame-Options blocks)
-  clearTimeout(openGame._t);
-  openGame._t = setTimeout(function() {
-    try {
-      // If frame document is accessible it loaded fine
-      var d = frameEl.contentDocument || frameEl.contentWindow.document;
-      if (!d || !d.body || d.body.innerHTML === '') showBlocked(game);
-    } catch(e) {
-      // Cross-origin means it loaded (just blocked from reading it) — that's fine
-    }
-  }, 6000);
-}
-
-function showBlocked(game) {
-  frameEl.style.display = 'none';
-  blockedEl.style.display = 'flex';
-  blockedLk.innerHTML = '<a href="' + game.url + '" target="_blank" rel="noopener">Open ' + game.title + ' in a new tab →</a>';
+  if (game.type === 'js') {
+    // Build a self-contained HTML page in a blob URL — zero external requests, always works
+    var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{margin:0;padding:0;box-sizing:border-box;}html,body{width:100%;height:100%;overflow:hidden;}</style></head><body>' + makeGame(game.game) + '</body></html>';
+    var blob = new Blob([html], {type:'text/html'});
+    var url  = URL.createObjectURL(blob);
+    frameEl.src = url;
+    // Revoke after load to free memory
+    frameEl.onload = function() { URL.revokeObjectURL(url); frameEl.onload = null; };
+  } else {
+    frameEl.src = game.url;
+  }
 }
 
 function closeOverlay() {
   overlay.classList.remove('open');
   frameEl.src = 'about:blank';
   document.body.style.overflow = '';
-  clearTimeout(openGame._t);
 }
 
 document.getElementById('btnClose').onclick = closeOverlay;
-
+document.getElementById('btnReload').onclick = function() {
+  if (currentGame) openGame(currentGame);
+};
 document.getElementById('btnFS').onclick = function() {
   var el = frameEl;
-  if (el.requestFullscreen) el.requestFullscreen();
-  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+  (el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen).call(el);
 };
-
-document.getElementById('btnReload').onclick = function() {
-  frameEl.src = currentUrl;
-};
-
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
 });
 
-// ── BUILD GRID ──
+// ─────────────────────────────────────────────────────────────
+// BUILD GRID
+// ─────────────────────────────────────────────────────────────
 var gameGrid = document.getElementById('gameGrid');
 
 function buildGrid() {
@@ -445,10 +480,8 @@ function buildGrid() {
       div.innerHTML =
         '<div class="card-thumb">' + game.emoji + '</div>' +
         (game.badge ? '<div class="badge">' + game.badge + '</div>' : '') +
-        '<div class="card-body">' +
-          '<div class="card-title">' + game.title + '</div>' +
-          '<div class="card-tag">' + game.cat + '</div>' +
-        '</div>' +
+        '<div class="card-body"><div class="card-title">' + game.title + '</div>' +
+        '<div class="card-tag">' + game.cat + '</div></div>' +
         '<div class="card-play">▶ PLAY NOW</div>';
       div.onclick = function() { openGame(game); };
       gameGrid.appendChild(div);
@@ -456,27 +489,24 @@ function buildGrid() {
   }
 }
 
-// ── FILTER ──
-var activeCat = 'all';
-var searchTerm = '';
+// ─────────────────────────────────────────────────────────────
+// FILTER + SEARCH
+// ─────────────────────────────────────────────────────────────
+var activeCat = 'all', searchTerm = '';
 
 function applyFilters() {
-  var cards = gameGrid.querySelectorAll('.card');
-  var count = 0;
+  var cards = gameGrid.querySelectorAll('.card'), count = 0;
   for (var i = 0; i < cards.length; i++) {
     var c = cards[i];
     var catOk = activeCat === 'all' || c.getAttribute('data-cat') === activeCat;
-    var q = searchTerm;
-    var searchOk = !q || c.getAttribute('data-title').indexOf(q) !== -1 || c.getAttribute('data-cat').indexOf(q) !== -1;
-    if (catOk && searchOk) { c.classList.remove('hidden'); count++; }
-    else c.classList.add('hidden');
+    var searchOk = !searchTerm || c.getAttribute('data-title').indexOf(searchTerm) !== -1 || c.getAttribute('data-cat').indexOf(searchTerm) !== -1;
+    if (catOk && searchOk) { c.classList.remove('hidden'); count++; } else c.classList.add('hidden');
   }
   document.getElementById('noResults').style.display = count === 0 ? 'block' : 'none';
   var label = activeCat === 'all' ? 'All Games' : activeCat.charAt(0).toUpperCase() + activeCat.slice(1);
   document.getElementById('sectionTitle').textContent = label + ' \u2014 ' + count + ' Games';
 }
 
-// ── CATEGORY NAV ──
 document.getElementById('catNav').onclick = function(e) {
   var btn = e.target;
   if (!btn.classList.contains('cat-btn')) return;
@@ -487,7 +517,6 @@ document.getElementById('catNav').onclick = function(e) {
   applyFilters();
 };
 
-// ── SEARCH ──
 document.getElementById('searchInput').oninput = function() {
   searchTerm = this.value.toLowerCase().trim();
   applyFilters();
